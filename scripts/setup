@@ -1,0 +1,33 @@
+#!/bin/bash -eu
+
+
+# Install package dependencies with Poetry
+if ! type poetry >/dev/null 2>&1
+then
+    echo "Poetry is not installed"
+    exit 1
+fi
+
+poetry install
+
+
+# Install VS Code's Python extension
+if type code >/dev/null 2>&1
+then
+    code --install-extension ms-python.python
+fi
+
+
+# Setup VS Code's workspace settings
+mkdir -p .vscode
+cat << EOS > .vscode/settings.json
+{
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "$(poetry run which python)",
+}
+EOS
