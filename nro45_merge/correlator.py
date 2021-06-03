@@ -74,7 +74,7 @@ def to_zarr(
         raise RuntimeError(f"{path_vdif} is truncated.")
 
     # prepare an empty zarr file
-    z = zarr.open(path_zarr.name, mode="w")
+    z = zarr.open(str(path_zarr), mode="w")
 
     z.empty(
         name="vdif_header",
