@@ -33,7 +33,17 @@ def to_zarr(
     overwrite: bool = False,
     progress: bool = False,
 ) -> None:
-    """Convert a VDIF file to a Zarr file.
+    """Convert a VDIF file to a Zarr file losslessly.
+
+    This function focuses on the conversion between formats.
+    The final formatted file with metadata and channel binning
+    should be created by another function (format_zarr).
+
+    The output Zarr file from the function has three arrays.
+
+    - vdif_header: 4-byte data (uint32) * 8.
+    - corr_header: 4-byte data (uint32) * 64.
+    - corr_data: 2-byte data (int16) * 512 (256 re/im values).
 
     Args:
         path_vdif: Path of the VDIF file.
@@ -67,13 +77,13 @@ def to_zarr(
     z = zarr.open(path_zarr.name, mode="w")
 
     z.empty(
-        name="vdif_head",
+        name="vdif_header",
         shape=(n_units, N_ROWS_VDIF_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_VDIF_HEAD),
         dtype=np.uint32,
     )
     z.empty(
-        name="corr_head",
+        name="corr_header",
         shape=(n_units, N_ROWS_CORR_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_HEAD),
         dtype=np.uint32,
@@ -86,19 +96,19 @@ def to_zarr(
     )
 
     # Read the VDIF file and write it to the Zarr file
-    read_vdif_head = make_binary_reader(N_ROWS_VDIF_HEAD, UINT)
-    read_corr_head = make_binary_reader(N_ROWS_CORR_HEAD, UINT)
+    read_vdif_header = make_binary_reader(N_ROWS_VDIF_HEAD, UINT)
+    read_corr_header = make_binary_reader(N_ROWS_CORR_HEAD, UINT)
     read_corr_data = make_binary_reader(N_ROWS_CORR_DATA, SHORT)
 
     with open(path_vdif, "rb") as f:
         for i in tqdm(range(n_seconds), disable=not progress):
-            vdif_head = []
-            corr_head = []
+            vdif_header = []
+            corr_header = []
             corr_data = []
 
             for _ in range(N_UNITS_PER_SECOND):
-                vdif_head.append(read_vdif_head(f))
-                corr_head.append(read_corr_head(f))
+                vdif_header.append(read_vdif_header(f))
+                corr_header.append(read_corr_header(f))
                 corr_data.append(read_corr_data(f))
 
             index = slice(
@@ -106,8 +116,8 @@ def to_zarr(
                 (i + 1) * N_UNITS_PER_SECOND,
             )
 
-            z.vdif_head[index] = vdif_head
-            z.corr_head[index] = corr_head
+            z.vdif_header[index] = vdif_header
+            z.corr_header[index] = corr_header
             z.corr_data[index] = corr_data
 
 
