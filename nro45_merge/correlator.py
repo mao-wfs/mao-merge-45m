@@ -2,7 +2,7 @@
 from logging import getLogger
 from struct import Struct
 from pathlib import Path
-from typing import BinaryIO, Callable, Tuple
+from typing import BinaryIO, Callable, Optional, Tuple
 
 
 # third-party packages
@@ -23,65 +23,92 @@ N_ROWS_VDIF_HEAD = 8
 N_ROWS_CORR_HEAD = 64
 N_ROWS_CORR_DATA = 512
 N_BYTES_PER_UNIT = 1312
+N_UNITS_PER_SECOND = 6400
 
 
 # main features
-def to_zarr(vdif: Path, progress: bool = True) -> Path:
-    """Convert a VDIF file to a Zarr dataset.
+def to_zarr(
+    path_vdif: Path,
+    path_zarr: Optional[Path] = None,
+    overwrite: bool = False,
+    progress: bool = False,
+) -> None:
+    """Convert a VDIF file to a Zarr file.
 
     Args:
-        vdif: Path of the VDIF file.
+        path_vdif: Path of the VDIF file.
+        path_zarr: Path of the Zarr file (optional).
+        overwrite: Whether to overwrite the Zarr file if exists.
         progress: Whether to show a progress bar.
 
-    Returns:
-        Path of the Zarr dataset.
-
     Raises:
-        RuntimeError: Raised if the VDIF file is broken.
+        RuntimeError: Raised if the VDIF file is truncated.
 
     """
-    # check if the VDIF file is broken
-    n_units, mod = divmod(vdif.stat().st_size, N_BYTES_PER_UNIT)
+    # check the existence of the Zarr file
+    if path_zarr is None:
+        path_zarr = Path(path_vdif).with_suffix(".zarr")
+
+    if path_zarr.exists() and not overwrite:
+        raise FileExistsError(f"{path_zarr} already exists.")
+
+    # check if the VDIF file is truncated.
+    n_units, mod = divmod(path_vdif.stat().st_size, N_BYTES_PER_UNIT)
 
     if mod:
-        raise RuntimeError("The VDIF file is broken.")
+        raise RuntimeError(f"{path_vdif} is truncated.")
 
-    # make binary readers
-    read_vdif_head = make_binary_reader(N_ROWS_VDIF_HEAD, UINT)
-    read_corr_head = make_binary_reader(N_ROWS_CORR_HEAD, UINT)
-    read_corr_data = make_binary_reader(N_ROWS_CORR_DATA, SHORT)
+    n_seconds, mod = divmod(n_units, N_UNITS_PER_SECOND)
 
-    # prepare an empty zarr dataset
-    z = zarr.open(vdif.with_suffix(".zarr").name, mode="w")
+    if mod:
+        raise RuntimeError(f"{path_vdif} is truncated.")
+
+    # prepare an empty zarr file
+    z = zarr.open(path_zarr.name, mode="w")
 
     z.empty(
         name="vdif_head",
         shape=(n_units, N_ROWS_VDIF_HEAD),
-        chunks=(1, N_ROWS_VDIF_HEAD),
+        chunks=(N_UNITS_PER_SECOND, N_ROWS_VDIF_HEAD),
         dtype=np.uint32,
     )
     z.empty(
         name="corr_head",
         shape=(n_units, N_ROWS_CORR_HEAD),
-        chunks=(1, N_ROWS_CORR_HEAD),
+        chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_HEAD),
         dtype=np.uint32,
     )
     z.empty(
         name="corr_data",
         shape=(n_units, N_ROWS_CORR_DATA),
-        chunks=(1, N_ROWS_CORR_DATA),
+        chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_DATA),
         dtype=np.int16,
     )
 
-    # Read the VDIF file and write it to the Zarr dataset
-    with open(vdif, "rb") as f:
-        for i in tqdm(range(n_units), disable=not progress):
-            z.vdif_head[i] = read_vdif_head(f)
-            z.corr_head[i] = read_corr_head(f)
-            z.corr_data[i] = read_corr_data(f)
+    # Read the VDIF file and write it to the Zarr file
+    read_vdif_head = make_binary_reader(N_ROWS_VDIF_HEAD, UINT)
+    read_corr_head = make_binary_reader(N_ROWS_CORR_HEAD, UINT)
+    read_corr_data = make_binary_reader(N_ROWS_CORR_DATA, SHORT)
 
-    # return the path of the Zarr dataset
-    return Path(z.store.path)
+    with open(path_vdif, "rb") as f:
+        for i in tqdm(range(n_seconds), disable=not progress):
+            vdif_head = []
+            corr_head = []
+            corr_data = []
+
+            for _ in range(N_UNITS_PER_SECOND):
+                vdif_head.append(read_vdif_head(f))
+                corr_head.append(read_corr_head(f))
+                corr_data.append(read_corr_data(f))
+
+            index = slice(
+                (i + 0) * N_UNITS_PER_SECOND,
+                (i + 1) * N_UNITS_PER_SECOND,
+            )
+
+            z.vdif_head[index] = vdif_head
+            z.corr_head[index] = corr_head
+            z.corr_data[index] = corr_data
 
 
 # helper features
