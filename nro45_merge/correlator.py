@@ -41,8 +41,8 @@ def to_zarr(
 
     The output Zarr file from the function has three arrays.
 
-    - vdif_header: 4-byte data (uint32) * 8.
-    - corr_header: 4-byte data (uint32) * 64.
+    - vdif_head: 4-byte data (uint32) * 8.
+    - corr_head: 4-byte data (uint32) * 64.
     - corr_data: 2-byte data (int16) * 512 (256 re/im values).
 
     Args:
@@ -77,13 +77,13 @@ def to_zarr(
     z = zarr.open(str(path_zarr), mode="w")
 
     z.empty(
-        name="vdif_header",
+        name="vdif_head",
         shape=(n_units, N_ROWS_VDIF_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_VDIF_HEAD),
         dtype=np.uint32,
     )
     z.empty(
-        name="corr_header",
+        name="corr_head",
         shape=(n_units, N_ROWS_CORR_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_HEAD),
         dtype=np.uint32,
@@ -96,19 +96,19 @@ def to_zarr(
     )
 
     # Read the VDIF file and write it to the Zarr file
-    read_vdif_header = make_binary_reader(N_ROWS_VDIF_HEAD, UINT)
-    read_corr_header = make_binary_reader(N_ROWS_CORR_HEAD, UINT)
+    read_vdif_head = make_binary_reader(N_ROWS_VDIF_HEAD, UINT)
+    read_corr_head = make_binary_reader(N_ROWS_CORR_HEAD, UINT)
     read_corr_data = make_binary_reader(N_ROWS_CORR_DATA, SHORT)
 
     with open(path_vdif, "rb") as f:
         for i in tqdm(range(n_seconds), disable=not progress):
-            vdif_header = []
-            corr_header = []
+            vdif_head = []
+            corr_head = []
             corr_data = []
 
             for _ in range(N_UNITS_PER_SECOND):
-                vdif_header.append(read_vdif_header(f))
-                corr_header.append(read_corr_header(f))
+                vdif_head.append(read_vdif_head(f))
+                corr_head.append(read_corr_head(f))
                 corr_data.append(read_corr_data(f))
 
             index = slice(
@@ -116,8 +116,8 @@ def to_zarr(
                 (i + 1) * N_UNITS_PER_SECOND,
             )
 
-            z.vdif_header[index] = vdif_header
-            z.corr_header[index] = corr_header
+            z.vdif_head[index] = vdif_head
+            z.corr_head[index] = corr_head
             z.corr_data[index] = corr_data
 
 
