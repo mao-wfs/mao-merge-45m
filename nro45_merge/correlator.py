@@ -32,7 +32,7 @@ def to_zarr(
     path_zarr: Optional[Path] = None,
     overwrite: bool = False,
     progress: bool = False,
-) -> None:
+) -> Path:
     """Convert a VDIF file to a Zarr file losslessly.
 
     This function focuses on the conversion between formats.
@@ -50,6 +50,9 @@ def to_zarr(
         path_zarr: Path of the Zarr file (optional).
         overwrite: Whether to overwrite the Zarr file if exists.
         progress: Whether to show a progress bar.
+
+    Returns:
+        Path of the Zarr file.
 
     Raises:
         RuntimeError: Raised if the VDIF file is truncated.
@@ -120,8 +123,9 @@ def to_zarr(
             z.corr_head[index] = corr_head
             z.corr_data[index] = corr_data
 
+    return path_zarr
 
-# helper features
+
 def make_binary_reader(
     n_repeat: int,
     dtype: str,
