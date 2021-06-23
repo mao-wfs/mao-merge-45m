@@ -38,6 +38,11 @@ UNIT_SECOND = np.timedelta64(1, "s")
 UNIT_MILLISECOND = np.timedelta64(10, "ms")
 FREQ_RANGE = np.arange(16, 24, 8 / 2 ** 13)
 IMAG_UNIT = np.complex64(1j)  # type: ignore
+TIME_NAME = "Measured time"
+FREQ_NAME = "Measured frequency"
+FREQ_UNIT = "GHz"
+CORR_NAME = "Correlator output"
+CORR_UNIT = "Arbitrary unit"
 
 
 # main features
@@ -109,6 +114,18 @@ def to_dist_zarr(
             freq=(DIMS[1], freq),
             correlator=(DIMS, correlator),
         )
+    )
+
+    ds.time.attrs.update(
+        long_name=TIME_NAME,
+    )
+    ds.freq.attrs.update(
+        long_name=FREQ_NAME,
+        units=FREQ_UNIT,
+    )
+    ds.correlator.attrs.update(
+        long_name=CORR_NAME,
+        units=CORR_UNIT,
     )
 
     if progress:
