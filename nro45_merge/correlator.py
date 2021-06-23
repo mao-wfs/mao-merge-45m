@@ -6,9 +6,12 @@ from typing import BinaryIO, Callable, Optional, Tuple
 
 
 # third-party packages
-import numpy as np
 import zarr
+import dask.array as da
+import numpy as np
+import xarray as xr
 from tqdm import tqdm
+from dask.diagnostics import ProgressBar
 
 
 # module-level logger
@@ -16,6 +19,7 @@ logger = getLogger(__name__)
 
 
 # constants
+DIMS = "time", "freq"
 UINT = "I"
 SHORT = "h"
 LITTLE_ENDIAN = "<"
@@ -23,10 +27,99 @@ N_ROWS_VDIF_HEAD = 8
 N_ROWS_CORR_HEAD = 64
 N_ROWS_CORR_DATA = 512
 N_BYTES_PER_UNIT = 1312
+N_UNITS_PER_SCAN = 64
 N_UNITS_PER_SECOND = 6400
+N_SCANS_PER_SECOND = 100
+SLICE_MONTH = slice(24, 30)
+SLICE_SECOND = slice(0, 30)
+REF_YEAR = np.datetime64("2000", "Y")
+UNIT_MONTH = np.timedelta64(6, "M")
+UNIT_SECOND = np.timedelta64(1, "s")
+UNIT_MILLISECOND = np.timedelta64(10, "ms")
+FREQ_RANGE = np.arange(16, 24, 8 / 2 ** 13)
+IMAG_UNIT = np.complex64(1j)  # type: ignore
 
 
 # main features
+def to_dist_zarr(
+    path_raw_zarr: Path,
+    path_dist_zarr: Optional[Path] = None,
+    n_binning: int = 4,
+    overwrite: bool = False,
+    progress: bool = False,
+) -> Path:
+    """ """
+    # check the existence of the Zarr file
+    if path_dist_zarr is None:
+        path_dist_zarr = path_raw_zarr.with_suffix(".dist.zarr")
+
+    if path_dist_zarr.exists() and not overwrite:
+        raise FileExistsError(f"{path_dist_zarr} already exists.")
+
+    # open the Zarr file and reshape arrays
+    z = zarr.open(str(path_raw_zarr))
+    vdif_head = da.from_zarr(z.vdif_head)  # type: ignore
+    corr_data = da.from_zarr(z.corr_data)  # type: ignore
+
+    vdif_head = vdif_head.flatten().reshape(
+        (
+            vdif_head.shape[0] / N_UNITS_PER_SCAN,
+            vdif_head.shape[1] * N_UNITS_PER_SCAN,
+        )
+    )
+    corr_data = corr_data.flatten().reshape(
+        (
+            corr_data.shape[0] / N_UNITS_PER_SCAN,
+            corr_data.shape[1] * N_UNITS_PER_SCAN,
+        )
+    )
+
+    # make complex correlator array
+    correlator = corr_data[:, 0::2] + corr_data[:, 1::2] * IMAG_UNIT
+
+    # make time and freq arrays
+    scan = np.arange(len(correlator))
+    month = slice_binary(vdif_head[:, 1], SLICE_MONTH) * UNIT_MONTH
+    second = slice_binary(vdif_head[:, 0], SLICE_SECOND) * UNIT_SECOND
+    millisecond = (scan % N_SCANS_PER_SECOND) * UNIT_MILLISECOND
+
+    time = (REF_YEAR + month + second + millisecond).compute()
+    freq = np.hstack((FREQ_RANGE[::-1], FREQ_RANGE))
+
+    # bin channels
+    correlator = correlator.reshape(
+        (
+            correlator.shape[0],
+            correlator.shape[1] // n_binning,
+            n_binning,
+        )
+    ).mean(-1)
+
+    freq = freq.reshape(
+        (
+            freq.shape[0] // n_binning,
+            n_binning,
+        )
+    ).mean(-1)
+
+    # write arrays to the Zarr file
+    ds = xr.Dataset(
+        dict(
+            time=(DIMS[0], time),
+            freq=(DIMS[1], freq),
+            correlator=(DIMS, correlator),
+        )
+    )
+
+    if progress:
+        with ProgressBar():
+            ds.to_zarr(path_dist_zarr, mode="w")
+    else:
+        ds.to_zarr(path_dist_zarr, mode="w")
+
+    return path_dist_zarr
+
+
 def to_zarr(
     path_vdif: Path,
     path_zarr: Optional[Path] = None,
@@ -36,8 +129,8 @@ def to_zarr(
     """Convert a VDIF file to a Zarr file losslessly.
 
     This function focuses on the conversion between formats.
-    The final formatted file with metadata and channel binning
-    should be created by another function (format_zarr).
+    The Zarr file for distribution with metadata will be
+    made by another function (to_dist_zarr).
 
     The output Zarr file from the function has three arrays.
 
