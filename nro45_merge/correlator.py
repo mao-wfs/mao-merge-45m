@@ -136,3 +136,12 @@ def make_binary_reader(
         return struct.unpack(f.read(struct.size))
 
     return reader
+
+
+def slice_binary(val: int, slice_: slice) -> int:
+    """Slice an integer with given bit range."""
+    start = int(slice_.start)
+    stop = int(slice_.stop)
+    length = stop - start
+
+    return (val >> start) & ((1 << length) - 1)
