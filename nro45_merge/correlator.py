@@ -82,19 +82,19 @@ def to_zarr(
         name="vdif_head",
         shape=(n_units, N_ROWS_VDIF_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_VDIF_HEAD),
-        dtype=np.uint32,
+        dtype=np.dtype(UINT),
     )
     z.empty(
         name="corr_head",
         shape=(n_units, N_ROWS_CORR_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_HEAD),
-        dtype=np.uint32,
+        dtype=np.dtype(UINT),
     )
     z.empty(
         name="corr_data",
         shape=(n_units, N_ROWS_CORR_DATA),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_DATA),
-        dtype=np.int16,
+        dtype=np.dtype(SHORT),
     )
 
     # Read the VDIF file and write it to the Zarr file
