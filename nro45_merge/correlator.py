@@ -78,23 +78,23 @@ def to_zarr(
 
     # prepare an empty zarr file
     z = zarr.open(str(path_zarr), mode="w")
-    z.empty(
+    z.empty(  # type: ignore
         name="vdif_head",
         shape=(n_units, N_ROWS_VDIF_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_VDIF_HEAD),
-        dtype=np.dtype(UINT),
+        dtype=np.dtype(UINT),  # type: ignore
     )
-    z.empty(
+    z.empty(  # type: ignore
         name="corr_head",
         shape=(n_units, N_ROWS_CORR_HEAD),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_HEAD),
-        dtype=np.dtype(UINT),
+        dtype=np.dtype(UINT),  # type: ignore
     )
-    z.empty(
+    z.empty(  # type: ignore
         name="corr_data",
         shape=(n_units, N_ROWS_CORR_DATA),
         chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_DATA),
-        dtype=np.dtype(SHORT),
+        dtype=np.dtype(SHORT),  # type: ignore
     )
 
     # Read the VDIF file and write it to the Zarr file
@@ -118,9 +118,9 @@ def to_zarr(
                 (i + 1) * N_UNITS_PER_SECOND,
             )
 
-            z.vdif_head[index] = vdif_head
-            z.corr_head[index] = corr_head
-            z.corr_data[index] = corr_data
+            z.vdif_head[index] = vdif_head  # type: ignore
+            z.corr_head[index] = corr_head  # type: ignore
+            z.corr_data[index] = corr_data  # type: ignore
 
     return path_zarr
 
