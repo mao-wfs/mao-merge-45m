@@ -30,6 +30,7 @@ N_BYTES_PER_UNIT = 1312
 N_UNITS_PER_SCAN = 64
 N_UNITS_PER_SECOND = 6400
 N_SCANS_PER_SECOND = 100
+N_SCANS_PER_MINUTE = 6000
 SLICE_MONTH = slice(24, 30)
 SLICE_SECOND = slice(0, 30)
 REF_YEAR = np.datetime64("2000", "Y")
@@ -128,6 +129,8 @@ def to_dist_zarr(
     ).mean(-1)
 
     # write arrays to the Zarr file
+    correlator = correlator.rechunk((N_SCANS_PER_MINUTE, None))
+
     ds = xr.Dataset(
         dict(
             time=(DIMS[0], time),
