@@ -1,7 +1,7 @@
 # standard library
 from logging import getLogger
-from struct import Struct
 from pathlib import Path
+from struct import Struct
 from typing import BinaryIO, Callable, Optional, Tuple
 
 
@@ -78,7 +78,6 @@ def to_zarr(
 
     # prepare an empty zarr file
     z = zarr.open(str(path_zarr), mode="w")
-
     z.empty(
         name="vdif_head",
         shape=(n_units, N_ROWS_VDIF_HEAD),
@@ -137,4 +136,3 @@ def make_binary_reader(
         return struct.unpack(f.read(struct.size))
 
     return reader
-
