@@ -49,7 +49,7 @@ CORR_UNIT = "Arbitrary unit"
 def to_dist_zarr(
     path_raw_zarr: Path,
     path_dist_zarr: Optional[Path] = None,
-    n_binning: int = 4,
+    bin_width: int = 8,
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
@@ -95,15 +95,15 @@ def to_dist_zarr(
     correlator = correlator.reshape(
         (
             correlator.shape[0],
-            correlator.shape[1] // n_binning,
-            n_binning,
+            correlator.shape[1] // bin_width,
+            bin_width,
         )
     ).mean(-1)
 
     freq = freq.reshape(
         (
-            freq.shape[0] // n_binning,
-            n_binning,
+            freq.shape[0] // bin_width,
+            bin_width,
         )
     ).mean(-1)
 
