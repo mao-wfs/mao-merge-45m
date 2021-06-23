@@ -53,7 +53,27 @@ def to_dist_zarr(
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
-    """ """
+    """Convert a raw Zarr file to a Zarr file for distribution.
+
+    This function will make a two-dimensional correlator output
+    with time and freq metadata derived from the raw Zarr file.
+    It will also average the output in frequency to reduce the size.
+
+    Args:
+        path_raw_vdif: Path of the raw VDIF file.
+        path_dist_zarr: Path of the dist. Zarr file (optional).
+        bin_width: Bin width for averaging the output in frequency.
+        overwrite: Whether to overwrite the dist. Zarr file if exists.
+        progress: Whether to show a progress bar.
+
+    Returns:
+        Path of the Zarr file for distribution.
+
+    Raises:
+        FileExistsError: Raised if the dist. Zarr file exists
+            and overwriting is not allowed (default).
+
+    """
     # check the existence of the Zarr file
     if path_dist_zarr is None:
         path_dist_zarr = path_raw_zarr.with_suffix(".dist.zarr")
@@ -166,6 +186,8 @@ def to_zarr(
 
     Raises:
         RuntimeError: Raised if the VDIF file is truncated.
+        FileExistsError: Raised if the Zarr file exists
+            and overwriting is not allowed (default).
 
     """
     # check the existence of the Zarr file
