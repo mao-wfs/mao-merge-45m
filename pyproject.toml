@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.8"
 dask = {version = "^2021.5", extras = ["complete"]}
 fire = "^0.4"
+matplotlib = "^3.4"
 numpy = "^1.20.3"
 pandas = "^1.2"
 tqdm = "^4.61"
