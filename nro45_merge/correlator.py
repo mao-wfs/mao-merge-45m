@@ -260,6 +260,56 @@ def to_zarr(
     return path_zarr
 
 
+def to_vdif(
+    path_zarr: Path,
+    path_vdif: Optional[Path] = None,
+    overwrite: bool = False,
+    progress: bool = False,
+) -> Path:
+    """Convert a Zarr file to a VDIF file losslessly.
+
+    Args:
+        path_zarr: Path of the Zarr file.
+        path_vdif: Path of the VDIF file (optional).
+        overwrite: Whether to overwrite the VDIF file if exists.
+        progress: Whether to show a progress bar.
+
+    Returns:
+        Path of the VDIF file.
+
+    Raises:
+        FileExistsError: Raised if the VDIF file exists
+            and overwriting is not allowed (default).
+
+    """
+    # check the existence of the Zarr file
+    if path_vdif is None:
+        path_vdif = Path(path_zarr).with_suffix(".vdif")
+
+    if path_vdif.exists() and not overwrite:
+        raise FileExistsError(f"{path_vdif} already exists.")
+
+    # Read the Zarr file and write it to the VDIF file
+    z = zarr.open(str(path_zarr), mode="r")
+    vdif_head = z.vdif_head  # type: ignore
+    corr_head = z.corr_head  # type: ignore
+    corr_data = z.corr_data  # type: ignore
+
+    arrays = tqdm(
+        zip(vdif_head, corr_head, corr_data),
+        total=len(vdif_head),
+        disable=not progress,
+    )
+
+    with path_vdif.open("wb") as f:
+        for units in arrays:
+            for unit in units:
+                f.write(unit.tobytes())
+
+    return path_vdif
+
+
+# helper features
 def make_binary_reader(
     n_repeat: int,
     dtype: str,
