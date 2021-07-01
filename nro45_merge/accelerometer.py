@@ -9,10 +9,10 @@ from tomlkit import parse
 
 
 # constants
-HEADER_REMOVAL = re.compile("\x00| ")
-HEADER_SIZE = re.compile("HeaderSiz\s+=\s+(\d+)")
-HEADER_SECTION = re.compile("^(\$+)(.+)$")
-HEADER_VALUE = re.compile("^\s*(\w+)\s*=\s*(.+)$")
+HEADER_REMOVAL = re.compile(r"\x00| ")
+HEADER_SECTION = re.compile(r"^(\$+)(.+)$")
+HEADER_SIZE = re.compile(r"HeaderSiz\s+=\s+(\d+)")
+HEADER_VALUE = re.compile(r"^\s*(\w+)\s*=\s*(.+)$")
 
 
 # main features
@@ -80,3 +80,8 @@ def to_parsable(obj: str) -> Union[str, int]:
         return int(obj)
     except ValueError:
         return obj.strip('"')
+
+
+if __name__ == "__main__":
+    path = Path("data/2018-12-02_09_58_42.gbd")
+    ret = get_header(path)
