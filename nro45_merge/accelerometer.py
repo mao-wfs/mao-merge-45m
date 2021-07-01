@@ -155,28 +155,28 @@ def get_data_units(header: Header) -> List[Optional[str]]:
     return units
 
 
-def get_data_volts(header: Header) -> List[Optional[str]]:
+def get_data_ranges(header: Header) -> List[Optional[str]]:
     """Return voltage range (units of V or mV) of data."""
     names = get_data_names(header)
-    volts = []
+    ranges = []
 
     for name in names:
         if name in (amp := header["Amp"]):
-            volts.append(amp[name][2])
+            ranges.append(amp[name][2])
         else:
-            volts.append(None)
+            ranges.append(None)
 
-    return volts
+    return ranges
 
 
 def get_data_scales(header: Header) -> List[float]:
     """Return scale (dimensionless) of data."""
     names = get_data_names(header)
     units = get_data_units(header)
-    volts = get_data_volts(header)
+    ranges = get_data_ranges(header)
     scales = []
 
-    for name, unit, volt in zip(names, units, volts):
+    for name, unit, volt in zip(names, units, ranges):
         if unit is None or volt is None:
             scales.append(1)
             continue
@@ -253,3 +253,9 @@ def get_data_reader(header: Header) -> Callable[[BinaryIO], Tuple]:
         return struct.unpack(f.read(struct.size))
 
     return reader
+
+
+if __name__ == "__main__":
+    path = Path("data/2018-12-02_09_58_42.gbd")
+    header = get_header(path)
+    data = get_data(path, progress=True)
