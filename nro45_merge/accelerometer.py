@@ -2,17 +2,29 @@
 import re
 from pathlib import Path
 from struct import Struct
-from typing import Any, BinaryIO, Callable, Dict, List, Optional, Tuple, Union
+from typing import (
+    Any,
+    BinaryIO,
+    Callable,
+    cast,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
 
 
 # third-party packages
 import numpy as np
 import pandas as pd
+import xarray as xr
 from tomlkit import parse
 from tqdm import tqdm
 
 
 # constants
+DIM = "time"
 BIG_ENDIAN = ">"
 HEADER_REMOVAL = re.compile(r"\x00| ")
 HEADER_SECTION = re.compile(r"^(\$+)(.+)$")
@@ -26,6 +38,46 @@ Data = pd.DataFrame
 
 
 # main features
+def to_zarr(
+    path_gbd: Path,
+    path_zarr: Optional[Path] = None,
+    encoding: str = "shift-jis",
+    overwrite: bool = False,
+    progress: bool = False,
+):
+    """Convert a GBD file to a Zarr file.
+
+    Args:
+        path_gbd: Path of the GBD file.
+        path_zarr: Path of the Zarr file (optional).
+        encoding: Encoding of the GBD file.
+        overwrite: Whether to overwrite the Zarr file if exists.
+        progress: Whether to show a progress bar.
+
+    Returns:
+        Path of the Zarr file.
+
+    Raises:
+        FileExistsError: Raised if the Zarr file exists
+            and overwriting is not allowed (default).
+
+    """
+    # check the existence of the Zarr file
+    if path_zarr is None:
+        path_zarr = path_gbd.with_suffix(".zarr")
+
+    if path_zarr.exists() and not overwrite:
+        raise FileExistsError(f"{path_zarr} already exists.")
+
+    # Read the GBD file and write it to the Zarr file
+    data = get_data(path_gbd, encoding, progress)
+
+    ds = cast(xr.Dataset, data.to_xarray())
+    ds.to_zarr(str(path_zarr))
+
+    return path_zarr
+
+
 def get_header(path: Path, encoding: str = "shift-jis") -> Header:
     """Return the header of a GBD file as a dictionary."""
     with path.open("rb") as f:
@@ -137,7 +189,7 @@ def get_data_index(header: Header) -> pd.DatetimeIndex:
     freq = header["Common"]["Data"]["Sample"]
     periods = get_data_length(header)
 
-    return pd.date_range(start, None, periods, freq)
+    return pd.date_range(start, None, periods, freq, name=DIM)
 
 
 def get_data_units(header: Header) -> List[Optional[str]]:
@@ -257,5 +309,7 @@ def get_data_reader(header: Header) -> Callable[[BinaryIO], Tuple]:
 
 if __name__ == "__main__":
     path = Path("data/2018-12-02_09_58_42.gbd")
+    path2 = Path("2018-12-02_09_58_42.zarr")
     header = get_header(path)
     data = get_data(path, progress=True)
+    to_zarr(path, path2, progress=True)
