@@ -207,6 +207,20 @@ def get_data_units(header: Header) -> List[Optional[str]]:
     return units
 
 
+def get_data_types(header: Header) -> List[Optional[str]]:
+    """Return types (voltage, temperature, humidity) of data."""
+    names = get_data_names(header)
+    types = []
+
+    for name in names:
+        if name in (amp := header["Amp"]):
+            types.append(amp[name][1])
+        else:
+            types.append(None)
+
+    return types
+
+
 def get_data_ranges(header: Header) -> List[Optional[str]]:
     """Return voltage range (units of V or mV) of data."""
     names = get_data_names(header)
@@ -224,53 +238,51 @@ def get_data_ranges(header: Header) -> List[Optional[str]]:
 def get_data_scales(header: Header) -> List[float]:
     """Return scale (dimensionless) of data."""
     names = get_data_names(header)
-    units = get_data_units(header)
+    types = get_data_types(header)
     ranges = get_data_ranges(header)
     scales = []
 
-    for name, unit, volt in zip(names, units, ranges):
-        if unit is None or volt is None:
+    for name, type_, range_ in zip(names, types, ranges):
+        if type_ is None or range_ is None:
             scales.append(1)
             continue
 
-        if unit == "ﾟC":
+        if type_ == "TEMP":
             scales.append(10)
             continue
 
         scale = 1
 
-        if "1" in volt:
+        if "1" in range_:
             scale *= 2
-        elif "2" in volt:
+        elif "2" in range_:
             scale *= 1
-        elif "4" in volt:
+        elif "4" in range_:
             scale *= 5
-        elif "5" in volt:
+        elif "5" in range_:
             scale *= 4
         else:
-            raise ValueError(volt)
+            raise ValueError(range_)
 
-        if volt in ("10mV", "20mV"):
+        if range_ in ("10mV", "20mV"):
             scale *= 1000
-        elif volt in ("50mV", "100mV", "200mV"):
+        elif range_ in ("50mV", "100mV", "200mV"):
             scale *= 100
-        elif volt in ("500mV", "1V", "2V"):
+        elif range_ in ("500mV", "1V", "2V"):
             scale *= 10
-        elif volt in ("5V", "10V", "20V"):
+        elif range_ in ("5V", "10V", "20V"):
             scale *= 1
-        elif volt in ("50V", "100V", "200V"):
+        elif range_ in ("50V", "100V", "200V"):
             scale *= 0.1
-        elif volt in ("500V", "1000V"):
+        elif range_ in ("500V", "1000V"):
             scale *= 0.01
         else:
-            raise ValueError(volt)
+            raise ValueError(range_)
 
-        if unit == "V":
-            scale *= 1000
-        elif unit == "mV":
+        if "mV" in range_:
             scale *= 1
         else:
-            raise ValueError(unit)
+            scale *= 1000
 
         scales.append(scale)
 
@@ -312,4 +324,7 @@ if __name__ == "__main__":
     path2 = Path("2018-12-02_09_58_42.zarr")
     header = get_header(path)
     data = get_data(path, progress=True)
-    to_zarr(path, path2, progress=True)
+    units = get_data_units(header)
+    scales = get_data_scales(header)
+
+    # to_zarr(path, path2, progress=True)
