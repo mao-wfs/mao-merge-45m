@@ -28,3 +28,5 @@ def test_get_data():
     assert data.columns[-1] == "Status (None)"
     assert data.index[0] == pd.Timestamp("2018-12-02 09:58:42.000000")
     assert data.index[-1] == pd.Timestamp("2018-12-02 10:28:42.010000")
+    assert data["CH1 (mV)"][0] == -3.025
+    assert data["CH1 (mV)"][-1] == 30.725
