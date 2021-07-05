@@ -18,7 +18,7 @@ def test_zarr_conversion():
         path_zarr = Path(zarr)
         path_vdif = Path(vdif.name)
 
-        to_zarr(TEST_VDIF, path_zarr, overwrite=True)
+        to_zarr(TEST_VDIF, path_zarr, overwrite=True, seconds_per_chunk=1)
         to_vdif(path_zarr, path_vdif, overwrite=True)
 
         with TEST_VDIF.open("rb") as f, path_vdif.open("rb") as g:

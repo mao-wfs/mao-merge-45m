@@ -163,6 +163,7 @@ def to_dist_zarr(
 def to_zarr(
     path_vdif: Path,
     path_zarr: Optional[Path] = None,
+    seconds_per_chunk: int = 60,
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
@@ -181,6 +182,7 @@ def to_zarr(
     Args:
         path_vdif: Path of the VDIF file.
         path_zarr: Path of the Zarr file (optional).
+        seconds_per_chunk: Time length per chunk in the Zarr file.
         overwrite: Whether to overwrite the Zarr file if exists.
         progress: Whether to show a progress bar.
 
@@ -204,31 +206,32 @@ def to_zarr(
     n_units, mod = divmod(path_vdif.stat().st_size, N_BYTES_PER_UNIT)
 
     if mod:
-        raise RuntimeError(f"{path_vdif} is truncated.")
+        raise RuntimeError(f"{path_vdif} may be truncated.")
 
-    n_seconds, mod = divmod(n_units, N_UNITS_PER_SECOND)
+    n_units_per_chunk = N_UNITS_PER_SECOND * seconds_per_chunk
+    n_chunks, mod = divmod(n_units, n_units_per_chunk)
 
     if mod:
-        raise RuntimeError(f"{path_vdif} is truncated.")
+        raise RuntimeError("Chunk length could not divide total time.")
 
     # prepare an empty zarr file
     z = zarr.open(str(path_zarr), mode="w")
     z.empty(  # type: ignore
         name="vdif_head",
         shape=(n_units, N_ROWS_VDIF_HEAD),
-        chunks=(N_UNITS_PER_SECOND, N_ROWS_VDIF_HEAD),
+        chunks=(n_units_per_chunk, N_ROWS_VDIF_HEAD),
         dtype=np.dtype(UINT),  # type: ignore
     )
     z.empty(  # type: ignore
         name="corr_head",
         shape=(n_units, N_ROWS_CORR_HEAD),
-        chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_HEAD),
+        chunks=(n_units_per_chunk, N_ROWS_CORR_HEAD),
         dtype=np.dtype(UINT),  # type: ignore
     )
     z.empty(  # type: ignore
         name="corr_data",
         shape=(n_units, N_ROWS_CORR_DATA),
-        chunks=(N_UNITS_PER_SECOND, N_ROWS_CORR_DATA),
+        chunks=(n_units_per_chunk, N_ROWS_CORR_DATA),
         dtype=np.dtype(SHORT),  # type: ignore
     )
 
@@ -238,19 +241,19 @@ def to_zarr(
     read_corr_data = make_binary_reader(N_ROWS_CORR_DATA, SHORT)
 
     with open(path_vdif, "rb") as f:
-        for i in tqdm(range(n_seconds), disable=not progress):
+        for i in tqdm(range(n_chunks), disable=not progress):
             vdif_head = []
             corr_head = []
             corr_data = []
 
-            for _ in range(N_UNITS_PER_SECOND):
+            for _ in range(n_units_per_chunk):
                 vdif_head.append(read_vdif_head(f))
                 corr_head.append(read_corr_head(f))
                 corr_data.append(read_corr_data(f))
 
             index = slice(
-                (i + 0) * N_UNITS_PER_SECOND,
-                (i + 1) * N_UNITS_PER_SECOND,
+                (i + 0) * n_units_per_chunk,
+                (i + 1) * n_units_per_chunk,
             )
 
             z.vdif_head[index] = vdif_head  # type: ignore
