@@ -31,13 +31,14 @@ N_UNITS_PER_SCAN = 64
 N_UNITS_PER_SECOND = 6400
 N_SCANS_PER_SECOND = 100
 N_SCANS_PER_MINUTE = 6000
+N_CHANS_FOR_DIST = 8192
+LOWER_FREQ_MHZ = 16384
 SLICE_MONTH = slice(24, 30)
 SLICE_SECOND = slice(0, 30)
 REF_YEAR = np.datetime64("2000", "Y")
 UNIT_MONTH = np.timedelta64(6, "M")
 UNIT_SECOND = np.timedelta64(1, "s")
 UNIT_MILLISECOND = np.timedelta64(10, "ms")
-FREQ_RANGE = np.arange(16, 24, 8 / 2 ** 13)
 IMAG_UNIT = np.complex64(1j)  # type: ignore
 TIME_NAME = "Measured time"
 FREQ_NAME = "Measured frequency"
@@ -103,6 +104,9 @@ def to_dist_zarr(
     # make complex correlator array
     correlator = corr_data[:, 0::2] + corr_data[:, 1::2] * IMAG_UNIT
 
+    # use only first 8192 frequency channels
+    correlator = correlator[:, :N_CHANS_FOR_DIST]
+
     # make time and freq arrays
     scan = np.arange(len(correlator))
     month = slice_binary(vdif_head[:, 1], SLICE_MONTH) * UNIT_MONTH
@@ -110,7 +114,7 @@ def to_dist_zarr(
     millisecond = (scan % N_SCANS_PER_SECOND) * UNIT_MILLISECOND
 
     time = (REF_YEAR + month + second + millisecond).compute()
-    freq = np.hstack((FREQ_RANGE[::-1], FREQ_RANGE))
+    freq = 1e-3 * (LOWER_FREQ_MHZ + np.arange(N_CHANS_FOR_DIST))
 
     # bin channels
     correlator = correlator.reshape(
