@@ -10,6 +10,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Sequence,
     Tuple,
     Union,
 )
@@ -21,6 +22,7 @@ import pandas as pd
 import xarray as xr
 from tomlkit import parse
 from tqdm import tqdm
+from dask.diagnostics import ProgressBar
 
 
 # constants
@@ -30,6 +32,8 @@ HEADER_REMOVAL = re.compile(r"\x00| ")
 HEADER_SECTION = re.compile(r"^(\$+)(.+)$")
 HEADER_SIZE = re.compile(r"HeaderSiz\s+=\s+(\d+)")
 HEADER_VALUE = re.compile(r"^\s*(\w+)\s*=\s*(.+)$")
+CHANNEL_NAME = re.compile("^CH")
+TIME_NAME = "Measured time"
 
 
 # type hints
@@ -38,6 +42,73 @@ Data = pd.DataFrame
 
 
 # main features
+def to_dist_zarr(
+    path_raw_zarr: Union[Sequence[Path], Path],
+    path_dist_zarr: Optional[Path] = None,
+    length_per_chunk: int = 1000000,
+    overwrite: bool = False,
+    progress: bool = False,
+):
+    """Convert a raw Zarr file(s) to a Zarr file for distribution.
+
+    This function will make a one-dimensional accelerometer outputs
+    with time metadata derived from the raw Zarr file.
+
+    Args:
+        path_raw_vdif: Path(s) of the raw VDIF file(s).
+        path_dist_zarr: Path of the dist. Zarr file (optional).
+        length_per_chunk: Length per chunk in the Zarr file.
+        overwrite: Whether to overwrite the dist. Zarr file if exists.
+        progress: Whether to show a progress bar.
+
+    Returns:
+        Path of the Zarr file for distribution.
+
+    Raises:
+        FileExistsError: Raised if the dist. Zarr file exists
+            and overwriting is not allowed (default).
+
+    """
+    # check the existence of the Zarr file
+    if isinstance(path_raw_zarr, Path):
+        path_raw_zarr = [path_raw_zarr]
+
+    if path_dist_zarr is None:
+        path_dist_zarr = path_raw_zarr[0].with_suffix(".dist.zarr")
+
+    if path_dist_zarr.exists() and not overwrite:
+        raise FileExistsError(f"{path_dist_zarr} already exists.")
+
+    # open the Zarr file(s) and concatenate them
+    ds_raw = xr.concat(map(xr.open_zarr, path_raw_zarr), DIM).sortby(DIM)
+    ds_raw = ds_raw.chunk(length_per_chunk)
+
+    # write arrays to the Zarr file
+    ds_dist = xr.Dataset()
+
+    for key, da in ds_raw.data_vars.items():
+        name, unit = key.split()
+
+        if CHANNEL_NAME.search(name) is None:
+            continue
+
+        da.attrs.update(
+            long_name=name,
+            units=unit.strip("()"),
+        )
+        ds_dist[f"accelerometer_{name.lower()}"] = da
+
+    ds_dist.time.attrs.update(long_name=TIME_NAME)
+
+    if progress:
+        with ProgressBar():
+            ds_dist.to_zarr(path_dist_zarr, mode="w")
+    else:
+        ds_dist.to_zarr(path_dist_zarr, mode="w")
+
+    return path_dist_zarr
+
+
 def to_zarr(
     path_gbd: Path,
     path_zarr: Optional[Path] = None,
@@ -322,14 +393,3 @@ def get_data_reader(header: Header) -> Callable[[BinaryIO], Tuple]:
         return struct.unpack(f.read(struct.size))
 
     return reader
-
-
-if __name__ == "__main__":
-    path = Path("data/2018-12-02_09_58_42.gbd")
-    path2 = Path("2018-12-02_09_58_42.zarr")
-    header = get_header(path)
-    data = get_data(path, progress=True)
-    units = get_data_units(header)
-    scales = get_data_scales(header)
-
-    # to_zarr(path, path2, progress=True)
