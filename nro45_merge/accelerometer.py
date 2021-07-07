@@ -41,15 +41,21 @@ Data = pd.DataFrame
 def to_zarr(
     path_gbd: Path,
     path_zarr: Optional[Path] = None,
+    length_per_chunk: int = 1000000,
     encoding: str = "shift-jis",
     overwrite: bool = False,
     progress: bool = False,
 ):
     """Convert a GBD file to a Zarr file.
 
+    This function focuses on the conversion between formats.
+    The Zarr file for distribution with metadata will be
+    made by another function (to_dist_zarr).
+
     Args:
         path_gbd: Path of the GBD file.
         path_zarr: Path of the Zarr file (optional).
+        length_per_chunk: Length per chunk in the Zarr file.
         encoding: Encoding of the GBD file.
         overwrite: Whether to overwrite the Zarr file if exists.
         progress: Whether to show a progress bar.
@@ -71,9 +77,8 @@ def to_zarr(
 
     # Read the GBD file and write it to the Zarr file
     data = get_data(path_gbd, encoding, progress)
-
-    ds = cast(xr.Dataset, data.to_xarray())
-    ds.to_zarr(str(path_zarr))
+    ds = cast(xr.Dataset, data.to_xarray()).chunk(length_per_chunk)
+    ds.to_zarr(path_zarr, mode="w")
 
     return path_zarr
 
