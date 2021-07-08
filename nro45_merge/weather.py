@@ -4,6 +4,7 @@ from typing import Optional, Sequence, Union, cast
 
 
 # third-party packages
+import numpy as np
 import pandas as pd
 import xarray as xr
 from dask.diagnostics import ProgressBar
@@ -11,6 +12,7 @@ from dask.diagnostics import ProgressBar
 
 # constants
 CSV_COLS = "time", "wind_speed", "wind_direction"
+JST_HOURS = np.timedelta64(9, "h")
 
 
 def to_dist_zarr(
@@ -24,6 +26,9 @@ def to_dist_zarr(
 
     This function will make a one-dimensional weather log outputs
     with time metadata derived from the raw CSV file.
+
+    Notes:
+        The timezone of the Zarr file is not JST but UTC.
 
     Args:
         path_csv: Path(s) of the raw CSV file(s).
@@ -67,6 +72,7 @@ def to_dist_zarr(
 
     # write DataFrame(s) to the Zarr file
     ds = cast(xr.Dataset, df.to_xarray())
+    ds = ds.assign_coords(time=ds.time - JST_HOURS)
     ds = ds.chunk(length_per_chunk)
 
     ds.time.attrs.update(
