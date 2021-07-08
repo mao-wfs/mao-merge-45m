@@ -34,6 +34,7 @@ HEADER_SIZE = re.compile(r"HeaderSiz\s+=\s+(\d+)")
 HEADER_VALUE = re.compile(r"^\s*(\w+)\s*=\s*(.+)$")
 CHANNEL_NAME = re.compile("^CH")
 TIME_NAME = "Measured time"
+JST_HOURS = np.timedelta64(9, "h")
 
 
 # type hints
@@ -53,6 +54,9 @@ def to_dist_zarr(
 
     This function will make a one-dimensional accelerometer outputs
     with time metadata derived from the raw Zarr file.
+
+    Notes:
+        The timezone of the Zarr file is not JST but UTC.
 
     Args:
         path_raw_vdif: Path(s) of the raw VDIF file(s).
@@ -81,6 +85,7 @@ def to_dist_zarr(
 
     # open the Zarr file(s) and concatenate them
     ds_raw = xr.concat(map(xr.open_zarr, path_raw_zarr), DIM).sortby(DIM)
+    ds_raw = ds_raw.assign_coords(time=ds_raw.time - JST_HOURS)
     ds_raw = ds_raw.chunk(length_per_chunk)
 
     # write arrays to the Zarr file

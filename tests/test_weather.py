@@ -4,6 +4,7 @@ from tempfile import TemporaryDirectory
 
 
 # third-party packages
+import numpy as np
 import pandas as pd
 import xarray as xr
 from nro45_merge.weather import to_dist_zarr
@@ -12,6 +13,7 @@ from nro45_merge.weather import to_dist_zarr
 # constants
 CSV_COLS = "time", "wind_speed", "wind_direction"
 TEST_CSV = Path("data") / "speed_dir_20201102.csv"
+JST_HOURS = np.timedelta64(9, "h")
 
 
 # test functions
@@ -22,6 +24,8 @@ def test_to_dist_zarr():
         to_dist_zarr(TEST_CSV, path_zarr, overwrite=True)
 
         ds = xr.open_zarr(path_zarr)
+        ds = ds.assign_coords(time=ds.time + JST_HOURS)
+
         df = pd.read_csv(
             TEST_CSV,
             names=CSV_COLS,
