@@ -6,12 +6,13 @@ authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8, <3.10"
 dask = {version = "^2021.5", extras = ["complete"]}
 fire = "^0.4"
 matplotlib = "^3.4"
 numpy = "^1.20.3"
 pandas = "^1.2"
+scipy = "^1.7"
 tomlkit = "^0.7"
 tqdm = "^4.61"
 xarray = "^0.18"
