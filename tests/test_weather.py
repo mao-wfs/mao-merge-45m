@@ -17,7 +17,7 @@ JST_HOURS = np.timedelta64(9, "h")
 
 
 # test functions
-def test_convert():
+def test_convert() -> None:
     """Test whether a CSV file is correctly parsed."""
     with TemporaryDirectory() as zarr:
         path_zarr = Path(zarr)

@@ -16,7 +16,7 @@ TEST_DIST = Path("data") / "distribution_20201123T004100Z.zarr"
 
 
 # test functions
-def test_merge():
+def test_merge() -> None:
     """Test whether a merged Zarr file is identical to the test file."""
     with TemporaryDirectory() as d:
         path_dir = Path(d)

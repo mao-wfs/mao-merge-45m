@@ -49,7 +49,7 @@ def convert(
     length_per_chunk: int = 1000000,
     overwrite: bool = False,
     progress: bool = False,
-):
+) -> Path:
     """Convert a raw Zarr file(s) to a formatted Zarr file.
 
     This function will make a one-dimensional accelerometer outputs
@@ -121,7 +121,7 @@ def to_zarr(
     encoding: str = "shift-jis",
     overwrite: bool = False,
     progress: bool = False,
-):
+) -> Path:
     """Convert a GBD file to a Zarr file.
 
     This function focuses on the conversion between formats.

@@ -12,7 +12,7 @@ TEST_GBD = Path("data") / "accelerometer_20201123T004000Z.gbd"
 
 
 # test functions
-def test_get_header():
+def test_get_header() -> None:
     """Test whether the header of a GBD file is correctly parsed."""
     header = get_header(TEST_GBD)
 
@@ -20,7 +20,7 @@ def test_get_header():
     assert header["Waveform"]["XYLine"]["CH4"] == [21, 0, 21]  # last item
 
 
-def test_get_data():
+def test_get_data() -> None:
     """Test whether the data of a GBD file is correctly parsed."""
     data = get_data(TEST_GBD)
 
