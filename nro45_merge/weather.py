@@ -15,7 +15,7 @@ CSV_COLS = "time", "wind_speed", "wind_direction"
 JST_HOURS = np.timedelta64(9, "h")
 
 
-def to_dist_zarr(
+def convert(
     path_csv: Union[Sequence[Path], Path],
     path_zarr: Optional[Path] = None,
     length_per_chunk: int = 1000000,

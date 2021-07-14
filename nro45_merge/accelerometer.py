@@ -43,7 +43,7 @@ Data = pd.DataFrame
 
 
 # main features
-def to_dist_zarr(
+def convert(
     path_raw_zarr: Union[Sequence[Path], Path],
     path_dist_zarr: Optional[Path] = None,
     length_per_chunk: int = 1000000,
@@ -126,7 +126,7 @@ def to_zarr(
 
     This function focuses on the conversion between formats.
     The Zarr file for distribution with metadata will be
-    made by another function (to_dist_zarr).
+    made by another function (convert).
 
     Args:
         path_gbd: Path of the GBD file.

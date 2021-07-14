@@ -22,7 +22,7 @@ def test_merge():
         path_dir = Path(d)
 
         # correlator (VDIF -> Zarr)
-        path_corr = correlator.to_dist_zarr(
+        path_corr = correlator.convert(
             correlator.to_zarr(
                 TEST_VDIF,
                 path_dir / "correlator.zarr",
@@ -31,7 +31,7 @@ def test_merge():
         )
 
         # accelerometer (GBD -> Zarr)
-        path_acc = accelerometer.to_dist_zarr(
+        path_acc = accelerometer.convert(
             accelerometer.to_zarr(
                 TEST_GBD,
                 path_dir / "accelerometer.zarr",
@@ -39,7 +39,7 @@ def test_merge():
         )
 
         # weather (CSV -> Zarr)
-        path_wea = weather.to_dist_zarr(
+        path_wea = weather.convert(
             TEST_CSV,
             path_dir / "weather.zarr",
         )

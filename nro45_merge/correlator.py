@@ -48,7 +48,7 @@ CORR_UNIT = "Arbitrary unit"
 
 
 # main features
-def to_dist_zarr(
+def convert(
     path_raw_zarr: Path,
     path_dist_zarr: Optional[Path] = None,
     bin_width: int = 8,
@@ -175,7 +175,7 @@ def to_zarr(
 
     This function focuses on the conversion between formats.
     The Zarr file for distribution with metadata will be
-    made by another function (to_dist_zarr).
+    made by another function (convert).
 
     The output Zarr file from the function has three arrays.
 
