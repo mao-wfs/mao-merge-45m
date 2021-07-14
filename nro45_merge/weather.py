@@ -22,7 +22,7 @@ def convert(
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
-    """Convert a raw CSV file(s) to a Zarr file for distribution.
+    """Convert a raw CSV file(s) to a formatted Zarr file.
 
     This function will make a one-dimensional weather log outputs
     with time metadata derived from the raw CSV file.
@@ -32,16 +32,16 @@ def convert(
 
     Args:
         path_csv: Path(s) of the raw CSV file(s).
-        path_zarr: Path of the dist. Zarr file (optional).
+        path_zarr: Path of the formatted Zarr file (optional).
         length_per_chunk: Length per chunk in the Zarr file.
-        overwrite: Whether to overwrite the dist. Zarr file if exists.
+        overwrite: Whether to overwrite the formatted Zarr file if exists.
         progress: Whether to show a progress bar.
 
     Returns:
-        Path of the Zarr file for distribution.
+        Path of the formatted Zarr file.
 
     Raises:
-        FileExistsError: Raised if the dist. Zarr file exists
+        FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
 
     """

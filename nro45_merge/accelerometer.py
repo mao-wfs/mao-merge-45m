@@ -50,7 +50,7 @@ def convert(
     overwrite: bool = False,
     progress: bool = False,
 ):
-    """Convert a raw Zarr file(s) to a Zarr file for distribution.
+    """Convert a raw Zarr file(s) to a formatted Zarr file.
 
     This function will make a one-dimensional accelerometer outputs
     with time metadata derived from the raw Zarr file.
@@ -60,16 +60,16 @@ def convert(
 
     Args:
         path_raw_vdif: Path(s) of the raw VDIF file(s).
-        path_fmt_zarr: Path of the dist. Zarr file (optional).
+        path_fmt_zarr: Path of the formatted Zarr file (optional).
         length_per_chunk: Length per chunk in the Zarr file.
-        overwrite: Whether to overwrite the dist. Zarr file if exists.
+        overwrite: Whether to overwrite the formatted Zarr file if exists.
         progress: Whether to show a progress bar.
 
     Returns:
-        Path of the Zarr file for distribution.
+        Path of the formatted Zarr file.
 
     Raises:
-        FileExistsError: Raised if the dist. Zarr file exists
+        FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
 
     """
@@ -89,7 +89,7 @@ def convert(
     ds_raw = ds_raw.chunk(length_per_chunk)
 
     # write arrays to the Zarr file
-    ds_dist = xr.Dataset()
+    ds_fmt = xr.Dataset()
 
     for key, da in ds_raw.data_vars.items():
         name, unit = key.split()
@@ -101,15 +101,15 @@ def convert(
             long_name=name,
             units=unit.strip("()"),
         )
-        ds_dist[f"accelerometer_{name.lower()}"] = da
+        ds_fmt[f"accelerometer_{name.lower()}"] = da
 
-    ds_dist.time.attrs.update(long_name=TIME_NAME)
+    ds_fmt.time.attrs.update(long_name=TIME_NAME)
 
     if progress:
         with ProgressBar():
-            ds_dist.to_zarr(path_fmt_zarr, mode="w")
+            ds_fmt.to_zarr(path_fmt_zarr, mode="w")
     else:
-        ds_dist.to_zarr(path_fmt_zarr, mode="w")
+        ds_fmt.to_zarr(path_fmt_zarr, mode="w")
 
     return path_fmt_zarr
 
@@ -125,7 +125,7 @@ def to_zarr(
     """Convert a GBD file to a Zarr file.
 
     This function focuses on the conversion between formats.
-    The Zarr file for distribution with metadata will be
+    The formatted Zarr file with metadata will be
     made by another function (convert).
 
     Args:

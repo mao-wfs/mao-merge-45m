@@ -45,7 +45,7 @@ def test_merge():
         )
 
         # merge (Zarrs -> Zarr)
-        path_dist = merge.merge(
+        path_fmt = merge.merge(
             path_corr,
             path_acc,
             path_wea,
@@ -53,6 +53,6 @@ def test_merge():
         )
 
         # comparison
-        ds_dist = xr.open_zarr(path_dist)
+        ds_fmt = xr.open_zarr(path_fmt)
         ds_test = xr.open_zarr(TEST_DIST)
-        assert (ds_dist == ds_test).all()
+        assert (ds_fmt == ds_test).all()

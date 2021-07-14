@@ -32,10 +32,10 @@ def merge(
         progress: Whether to show a progress bar.
 
     Returns:
-        Path of the Zarr file for distribution.
+        Path of the formatted Zarr file.
 
     Raises:
-        FileExistsError: Raised if the dist. Zarr file exists
+        FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
 
     """
