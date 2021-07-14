@@ -18,7 +18,7 @@ def merge(
     in_place: bool = False,
     overwrite: bool = False,
     progress: bool = False,
-) -> None:
+) -> Path:
     """Merge Zarr files of measured data into a single Zarr file.
 
     Args:
@@ -40,7 +40,10 @@ def merge(
 
     """
     # check the existence of the merge Zarr file
-    if not in_place and path_merge_zarr is None:
+    if in_place:
+        path_merge_zarr = path_correlator_zarr
+
+    if path_merge_zarr is None:
         raise ValueError("Path of merge Zarr file is not specified.")
 
     if not in_place and not overwrite and path_merge_zarr.exists():
@@ -67,9 +70,11 @@ def merge(
 
     with bar:
         if in_place:
+            accelerometer = accelerometer.merge(weather)
             accelerometer.to_zarr(path_correlator_zarr, mode="a")
-            weather.to_zarr(path_correlator_zarr, mode="a")
         else:
             correlator = correlator.merge(accelerometer)
             correlator = correlator.merge(weather)
             correlator.to_zarr(path_merge_zarr)
+
+    return path_merge_zarr

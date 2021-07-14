@@ -1,0 +1,9 @@
+{
+    "_ARRAY_DIMENSIONS": [
+        "time",
+        "freq"
+    ],
+    "coordinates": "accelerometer_ch3 accelerometer_ch1 wind_speed accelerometer_ch7 accelerometer_ch2 accelerometer_ch4 accelerometer_ch5 accelerometer_ch8 wind_direction accelerometer_ch6",
+    "long_name": "Correlator output",
+    "units": "Arbitrary unit"
+}

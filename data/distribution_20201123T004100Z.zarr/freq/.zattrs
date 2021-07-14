@@ -1,0 +1,7 @@
+{
+    "_ARRAY_DIMENSIONS": [
+        "freq"
+    ],
+    "long_name": "Measured frequency",
+    "units": "GHz"
+}
