@@ -31,7 +31,7 @@ N_UNITS_PER_SCAN = 64
 N_UNITS_PER_SECOND = 6400
 N_SCANS_PER_SECOND = 100
 N_SCANS_PER_MINUTE = 6000
-N_CHANS_FOR_DIST = 8192
+N_CHANS_FOR_FORMAT = 8192
 LOWER_FREQ_MHZ = 16384
 SLICE_MONTH = slice(24, 30)
 SLICE_SECOND = slice(0, 30)
@@ -48,14 +48,14 @@ CORR_UNIT = "Arbitrary unit"
 
 
 # main features
-def to_dist_zarr(
+def convert(
     path_raw_zarr: Path,
-    path_dist_zarr: Optional[Path] = None,
+    path_fmt_zarr: Optional[Path] = None,
     bin_width: int = 8,
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
-    """Convert a raw Zarr file to a Zarr file for distribution.
+    """Convert a raw Zarr file to a formatted Zarr file.
 
     This function will make a two-dimensional correlator output
     with time and freq metadata derived from the raw Zarr file.
@@ -63,25 +63,25 @@ def to_dist_zarr(
 
     Args:
         path_raw_vdif: Path of the raw VDIF file.
-        path_dist_zarr: Path of the dist. Zarr file (optional).
+        path_fmt_zarr: Path of the formatted Zarr file (optional).
         bin_width: Bin width for averaging the output in frequency.
-        overwrite: Whether to overwrite the dist. Zarr file if exists.
+        overwrite: Whether to overwrite the formatted Zarr file if exists.
         progress: Whether to show a progress bar.
 
     Returns:
-        Path of the Zarr file for distribution.
+        Path of the formatted Zarr file.
 
     Raises:
-        FileExistsError: Raised if the dist. Zarr file exists
+        FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
 
     """
     # check the existence of the Zarr file
-    if path_dist_zarr is None:
-        path_dist_zarr = path_raw_zarr.with_suffix(".dist.zarr")
+    if path_fmt_zarr is None:
+        path_fmt_zarr = path_raw_zarr.with_suffix(".dist.zarr")
 
-    if path_dist_zarr.exists() and not overwrite:
-        raise FileExistsError(f"{path_dist_zarr} already exists.")
+    if path_fmt_zarr.exists() and not overwrite:
+        raise FileExistsError(f"{path_fmt_zarr} already exists.")
 
     # open the Zarr file and reshape arrays
     z = zarr.open(str(path_raw_zarr))
@@ -105,7 +105,7 @@ def to_dist_zarr(
     correlator = corr_data[:, 0::2] + corr_data[:, 1::2] * IMAG_UNIT
 
     # use only first 8192 frequency channels
-    correlator = correlator[:, :N_CHANS_FOR_DIST]
+    correlator = correlator[:, :N_CHANS_FOR_FORMAT]
 
     # make time and freq arrays
     scan = np.arange(len(correlator))
@@ -114,7 +114,7 @@ def to_dist_zarr(
     millisecond = (scan % N_SCANS_PER_SECOND) * UNIT_MILLISECOND
 
     time = (REF_YEAR + month + second + millisecond).compute()
-    freq = 1e-3 * (LOWER_FREQ_MHZ + np.arange(N_CHANS_FOR_DIST))
+    freq = 1e-3 * (LOWER_FREQ_MHZ + np.arange(N_CHANS_FOR_FORMAT))
 
     # bin channels
     correlator = correlator.reshape(
@@ -157,11 +157,11 @@ def to_dist_zarr(
 
     if progress:
         with ProgressBar():
-            ds.to_zarr(path_dist_zarr, mode="w")
+            ds.to_zarr(path_fmt_zarr, mode="w")
     else:
-        ds.to_zarr(path_dist_zarr, mode="w")
+        ds.to_zarr(path_fmt_zarr, mode="w")
 
-    return path_dist_zarr
+    return path_fmt_zarr
 
 
 def to_zarr(
@@ -174,8 +174,8 @@ def to_zarr(
     """Convert a VDIF file to a Zarr file losslessly.
 
     This function focuses on the conversion between formats.
-    The Zarr file for distribution with metadata will be
-    made by another function (to_dist_zarr).
+    The formatted Zarr file with metadata will be
+    made by another function (convert).
 
     The output Zarr file from the function has three arrays.
 

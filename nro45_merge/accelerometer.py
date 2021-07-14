@@ -43,14 +43,14 @@ Data = pd.DataFrame
 
 
 # main features
-def to_dist_zarr(
+def convert(
     path_raw_zarr: Union[Sequence[Path], Path],
-    path_dist_zarr: Optional[Path] = None,
+    path_fmt_zarr: Optional[Path] = None,
     length_per_chunk: int = 1000000,
     overwrite: bool = False,
     progress: bool = False,
 ):
-    """Convert a raw Zarr file(s) to a Zarr file for distribution.
+    """Convert a raw Zarr file(s) to a formatted Zarr file.
 
     This function will make a one-dimensional accelerometer outputs
     with time metadata derived from the raw Zarr file.
@@ -60,16 +60,16 @@ def to_dist_zarr(
 
     Args:
         path_raw_vdif: Path(s) of the raw VDIF file(s).
-        path_dist_zarr: Path of the dist. Zarr file (optional).
+        path_fmt_zarr: Path of the formatted Zarr file (optional).
         length_per_chunk: Length per chunk in the Zarr file.
-        overwrite: Whether to overwrite the dist. Zarr file if exists.
+        overwrite: Whether to overwrite the formatted Zarr file if exists.
         progress: Whether to show a progress bar.
 
     Returns:
-        Path of the Zarr file for distribution.
+        Path of the formatted Zarr file.
 
     Raises:
-        FileExistsError: Raised if the dist. Zarr file exists
+        FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
 
     """
@@ -77,11 +77,11 @@ def to_dist_zarr(
     if isinstance(path_raw_zarr, Path):
         path_raw_zarr = [path_raw_zarr]
 
-    if path_dist_zarr is None:
-        path_dist_zarr = path_raw_zarr[0].with_suffix(".dist.zarr")
+    if path_fmt_zarr is None:
+        path_fmt_zarr = path_raw_zarr[0].with_suffix(".dist.zarr")
 
-    if path_dist_zarr.exists() and not overwrite:
-        raise FileExistsError(f"{path_dist_zarr} already exists.")
+    if path_fmt_zarr.exists() and not overwrite:
+        raise FileExistsError(f"{path_fmt_zarr} already exists.")
 
     # open the Zarr file(s) and concatenate them
     ds_raw = xr.concat(map(xr.open_zarr, path_raw_zarr), DIM).sortby(DIM)
@@ -89,7 +89,7 @@ def to_dist_zarr(
     ds_raw = ds_raw.chunk(length_per_chunk)
 
     # write arrays to the Zarr file
-    ds_dist = xr.Dataset()
+    ds_fmt = xr.Dataset()
 
     for key, da in ds_raw.data_vars.items():
         name, unit = key.split()
@@ -101,17 +101,17 @@ def to_dist_zarr(
             long_name=name,
             units=unit.strip("()"),
         )
-        ds_dist[f"accelerometer_{name.lower()}"] = da
+        ds_fmt[f"accelerometer_{name.lower()}"] = da
 
-    ds_dist.time.attrs.update(long_name=TIME_NAME)
+    ds_fmt.time.attrs.update(long_name=TIME_NAME)
 
     if progress:
         with ProgressBar():
-            ds_dist.to_zarr(path_dist_zarr, mode="w")
+            ds_fmt.to_zarr(path_fmt_zarr, mode="w")
     else:
-        ds_dist.to_zarr(path_dist_zarr, mode="w")
+        ds_fmt.to_zarr(path_fmt_zarr, mode="w")
 
-    return path_dist_zarr
+    return path_fmt_zarr
 
 
 def to_zarr(
@@ -125,8 +125,8 @@ def to_zarr(
     """Convert a GBD file to a Zarr file.
 
     This function focuses on the conversion between formats.
-    The Zarr file for distribution with metadata will be
-    made by another function (to_dist_zarr).
+    The formatted Zarr file with metadata will be
+    made by another function (convert).
 
     Args:
         path_gbd: Path of the GBD file.
