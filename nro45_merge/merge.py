@@ -67,8 +67,8 @@ def merge(
 
     with bar:
         if in_place:
+            accelerometer = accelerometer.merge(weather)
             accelerometer.to_zarr(path_correlator_zarr, mode="a")
-            weather.to_zarr(path_correlator_zarr, mode="a")
         else:
             correlator = correlator.merge(accelerometer)
             correlator = correlator.merge(weather)
