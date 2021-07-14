@@ -1,3 +1,6 @@
+__all__ = ["convert", "to_zarr"]
+
+
 # standard library
 import re
 from pathlib import Path
@@ -49,14 +52,11 @@ def convert(
     length_per_chunk: int = 1000000,
     overwrite: bool = False,
     progress: bool = False,
-):
+) -> Path:
     """Convert a raw Zarr file(s) to a formatted Zarr file.
 
     This function will make a one-dimensional accelerometer outputs
     with time metadata derived from the raw Zarr file.
-
-    Notes:
-        The timezone of the Zarr file is not JST but UTC.
 
     Args:
         path_raw_vdif: Path(s) of the raw VDIF file(s).
@@ -71,6 +71,9 @@ def convert(
     Raises:
         FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
+
+    Notes:
+        The timezone of the Zarr file is not JST but UTC.
 
     """
     # check the existence of the Zarr file
@@ -121,7 +124,7 @@ def to_zarr(
     encoding: str = "shift-jis",
     overwrite: bool = False,
     progress: bool = False,
-):
+) -> Path:
     """Convert a GBD file to a Zarr file.
 
     This function focuses on the conversion between formats.

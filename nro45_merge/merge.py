@@ -1,3 +1,6 @@
+__all__ = ["merge"]
+
+
 # standard library
 from pathlib import Path
 from typing import Optional

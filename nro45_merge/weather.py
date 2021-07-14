@@ -1,3 +1,6 @@
+__all__ = ["convert"]
+
+
 # standard library
 from pathlib import Path
 from typing import Optional, Sequence, Union, cast
@@ -27,9 +30,6 @@ def convert(
     This function will make a one-dimensional weather log outputs
     with time metadata derived from the raw CSV file.
 
-    Notes:
-        The timezone of the Zarr file is not JST but UTC.
-
     Args:
         path_csv: Path(s) of the raw CSV file(s).
         path_zarr: Path of the formatted Zarr file (optional).
@@ -43,6 +43,9 @@ def convert(
     Raises:
         FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
+
+    Notes:
+        The timezone of the Zarr file is not JST but UTC.
 
     """
     # check the existence of the Zarr file

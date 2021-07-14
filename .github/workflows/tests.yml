@@ -25,6 +25,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          sudo apt install pandoc
           pip install poetry
           poetry install
       - name: Test code format (Black)
@@ -33,3 +34,5 @@ jobs:
         run: poetry run flake8 ${TESTED_DIRS}
       - name: Test package (pytest)
         run : poetry run pytest -v tests
+      - name: Test docs building (Sphinx)
+        run: poetry run docs/build

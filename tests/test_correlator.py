@@ -12,7 +12,7 @@ TEST_VDIF = Path("data") / "correlator_20201123T004100Z.vdif"
 
 
 # test functions
-def test_zarr_conversion():
+def test_zarr_conversion() -> None:
     """Test whether a VDIF file and that regenerated are identical."""
     with TemporaryDirectory() as zarr, NamedTemporaryFile() as vdif:
         path_zarr = Path(zarr)
