@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "nro45-merge"
 version = "0.1.0"
-description = "Merge MAO datasets observed with NRO 45m telescope into a single netCDF file"
+description = "Merge MAO datasets observed with NRO 45m telescope into a single Zarr file"
 authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
 license = "MIT"
 
