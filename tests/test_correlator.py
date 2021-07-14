@@ -8,7 +8,7 @@ from nro45_merge.correlator import to_vdif, to_zarr
 
 
 # constants
-TEST_VDIF = Path("data") / "test_2013001033430_5.vdif"
+TEST_VDIF = Path("data") / "test_2020328004100_5.vdif"
 
 
 # test functions
