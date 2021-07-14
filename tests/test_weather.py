@@ -12,7 +12,7 @@ from nro45_merge.weather import to_dist_zarr
 
 # constants
 CSV_COLS = "time", "wind_speed", "wind_direction"
-TEST_CSV = Path("data") / "speed_dir_20201102.csv"
+TEST_CSV = Path("data") / "20201123T094000.csv"
 JST_HOURS = np.timedelta64(9, "h")
 
 
