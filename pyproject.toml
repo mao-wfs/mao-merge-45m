@@ -23,7 +23,9 @@ zarr = "^2.8.3"
 black = "^21.5b"
 flake8 = "^3.9"
 ipython = "^7.24"
+pydata-sphinx-theme = "^0.6"
 pytest = "^6.2"
+sphinx = "^4.1"
 
 [tool.poetry.scripts]
 nro45-merge = "nro45_merge.cli:main"
