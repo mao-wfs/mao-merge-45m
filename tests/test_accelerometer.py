@@ -8,7 +8,7 @@ from nro45_merge.accelerometer import get_data, get_header
 
 
 # constants
-TEST_GBD = Path("data") / "20201123T004000.gbd"
+TEST_GBD = Path("data") / "accelerometer_20201123T004000Z.gbd"
 
 
 # test functions
