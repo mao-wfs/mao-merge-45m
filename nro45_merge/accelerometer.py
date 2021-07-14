@@ -1,3 +1,6 @@
+__all__ = ["convert", "to_zarr"]
+
+
 # standard library
 import re
 from pathlib import Path
@@ -55,9 +58,6 @@ def convert(
     This function will make a one-dimensional accelerometer outputs
     with time metadata derived from the raw Zarr file.
 
-    Notes:
-        The timezone of the Zarr file is not JST but UTC.
-
     Args:
         path_raw_vdif: Path(s) of the raw VDIF file(s).
         path_fmt_zarr: Path of the formatted Zarr file (optional).
@@ -71,6 +71,9 @@ def convert(
     Raises:
         FileExistsError: Raised if the formatted Zarr file exists
             and overwriting is not allowed (default).
+
+    Notes:
+        The timezone of the Zarr file is not JST but UTC.
 
     """
     # check the existence of the Zarr file
