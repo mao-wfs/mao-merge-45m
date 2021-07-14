@@ -50,7 +50,7 @@ CORR_UNIT = "Arbitrary unit"
 # main features
 def convert(
     path_raw_zarr: Path,
-    path_dist_zarr: Optional[Path] = None,
+    path_fmt_zarr: Optional[Path] = None,
     bin_width: int = 8,
     overwrite: bool = False,
     progress: bool = False,
@@ -63,7 +63,7 @@ def convert(
 
     Args:
         path_raw_vdif: Path of the raw VDIF file.
-        path_dist_zarr: Path of the dist. Zarr file (optional).
+        path_fmt_zarr: Path of the dist. Zarr file (optional).
         bin_width: Bin width for averaging the output in frequency.
         overwrite: Whether to overwrite the dist. Zarr file if exists.
         progress: Whether to show a progress bar.
@@ -77,11 +77,11 @@ def convert(
 
     """
     # check the existence of the Zarr file
-    if path_dist_zarr is None:
-        path_dist_zarr = path_raw_zarr.with_suffix(".dist.zarr")
+    if path_fmt_zarr is None:
+        path_fmt_zarr = path_raw_zarr.with_suffix(".dist.zarr")
 
-    if path_dist_zarr.exists() and not overwrite:
-        raise FileExistsError(f"{path_dist_zarr} already exists.")
+    if path_fmt_zarr.exists() and not overwrite:
+        raise FileExistsError(f"{path_fmt_zarr} already exists.")
 
     # open the Zarr file and reshape arrays
     z = zarr.open(str(path_raw_zarr))
@@ -157,11 +157,11 @@ def convert(
 
     if progress:
         with ProgressBar():
-            ds.to_zarr(path_dist_zarr, mode="w")
+            ds.to_zarr(path_fmt_zarr, mode="w")
     else:
-        ds.to_zarr(path_dist_zarr, mode="w")
+        ds.to_zarr(path_fmt_zarr, mode="w")
 
-    return path_dist_zarr
+    return path_fmt_zarr
 
 
 def to_zarr(
