@@ -101,8 +101,7 @@ def convert(
             usecols=range(len(LOG_COLS)),
         )
 
-        index = path.name + df_.index.astype(str).str.zfill(6)
-        index = pd.to_datetime(index, format=DATE_FORMAT)
+        index = pd.to_datetime(df_.index, format=DATE_FORMAT)
         df_.set_index(index, inplace=True)
 
         df = df.append(df_).drop_duplicates()
