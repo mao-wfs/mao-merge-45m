@@ -5,12 +5,13 @@ from tempfile import TemporaryDirectory
 
 # third-party packages
 import xarray as xr
-from nro45_merge import accelerometer, correlator, merge, weather
+from nro45_merge import accelerometer, antenna, correlator, merge, weather
 
 
 # constants
 TEST_CSV = Path("data") / "weather_20201123T004000Z.csv"
 TEST_GBD = Path("data") / "accelerometer_20201123T004000Z.gbd"
+TEST_LOG = Path("data") / "antenna_20201123T004100Z.txt"
 TEST_VDIF = Path("data") / "correlator_20201123T004100Z.vdif"
 TEST_DIST = Path("data") / "distribution_20201123T004100Z.zarr"
 
@@ -44,11 +45,18 @@ def test_merge() -> None:
             path_dir / "weather.zarr",
         )
 
+        # antenna (log -> Zarr)
+        path_ant = antenna.convert(
+            TEST_LOG,
+            path_dir / "antenna.zarr",
+        )
+
         # merge (Zarrs -> Zarr)
         path_fmt = merge.merge(
             path_corr,
             path_acc,
             path_wea,
+            path_ant,
             path_dir / "distribution.zarr",
         )
 
