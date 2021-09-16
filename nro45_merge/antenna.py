@@ -12,7 +12,7 @@ from xarray_dataclasses import AsDataset, Attr, Data, Dataof
 
 
 # constants
-LOG_COLS = "time", "az", "el"
+LOG_COLS = "time", "antenna_azimuth", "antenna_elevation"
 JST_HOURS = np.timedelta64(9, "h")
 DATE_FORMAT = "%y%m%d%H%M%S"
 
@@ -90,24 +90,26 @@ def convert(
     # read log file(s) and convert them to DataFrame(s)
     df = pd.DataFrame(
         columns=LOG_COLS[1:],
-        index=pd.Index([], name=LOG_COLS[0]),
+        index=pd.DatetimeIndex([], name=LOG_COLS[0]),
     )
 
     for path in path_log:
         df_ = pd.read_csv(
             path,
-            sep=r"\s+",
+            header=0,
             index_col=0,
+            names=LOG_COLS,
+            sep=r"\s+",
             usecols=range(len(LOG_COLS)),
         )
 
         index = pd.to_datetime(df_.index, format=DATE_FORMAT)
         df_.set_index(index, inplace=True)
 
-        df = df.append(df_).drop_duplicates()
+        df = df.append(df_)
 
     # write DataFrame(s) to the Zarr file
-    ds = Antenna.new(df.az, df.el)
+    ds = Antenna.new(df.antenna_azimuth, df.antenna_elevation)
     ds = ds.assign_coords(time=ds.time - JST_HOURS)
     ds = ds.chunk(length_per_chunk)
 
