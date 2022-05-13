@@ -4,7 +4,7 @@ from tempfile import NamedTemporaryFile, TemporaryDirectory
 
 
 # third-party packages
-from nro45_merge.correlator import to_vdif, to_zarr
+from mao_merge_45m.correlator import to_vdif, to_zarr
 
 
 # constants

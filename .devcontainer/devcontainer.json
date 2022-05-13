@@ -1,5 +1,5 @@
 {
-    "name": "nro45-merge",
+    "name": "mao-merge-45m",
     "build": {
         "context": "..",
         "dockerfile": "Dockerfile"

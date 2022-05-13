@@ -26,7 +26,7 @@ jobs:
       - name: Install project dependencies
         run: pip install poetry && poetry install
       - name: Test code's formatting (Black)
-        run: black --check docs tests nro45_merge
+        run: black --check docs tests mao_merge_45m
       - name: Test code's execution (pytest)
         run: pytest -v tests
       - name: Test docs' building (Sphinx)

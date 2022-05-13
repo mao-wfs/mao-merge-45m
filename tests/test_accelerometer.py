@@ -4,7 +4,7 @@ from pathlib import Path
 
 # third-party packages
 import pandas as pd
-from nro45_merge.accelerometer import get_data, get_header
+from mao_merge_45m.accelerometer import get_data, get_header
 
 
 # constants
