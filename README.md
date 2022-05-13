@@ -1,11 +1,11 @@
-# nro45-merge
+# mao-merge-45m
 Merge MAO datasets observed with NRO 45m telescope into a single Zarr file
 
 ## Installation
 
 ```shell
-$ git clone https://github.com/mao-wfs/nro45-merge.git
-$ cd nro45-merge
+$ git clone https://github.com/mao-wfs/mao-merge-45m.git
+$ cd mao-merge-45m
 $ poetry install
 ```
 
@@ -15,7 +15,7 @@ $ poetry install
 
 ```python
 from pathlib import Path
-from nro45_merge import correlator
+from mao_merge_45m import correlator
 
 
 path_vdif = Path("/path/to/data.vdif")
@@ -27,7 +27,7 @@ path_fmt_zarr = correlator.convert(path_raw_zarr)
 
 ```python
 from pathlib import Path
-from nro45_merge import accelerometer
+from mao_merge_45m import accelerometer
 
 
 path_gbd = Path("/path/to/data.gbd")
@@ -39,7 +39,7 @@ path_fmt_zarr = accelerometer.convert(path_raw_zarr)
 
 ```python
 from pathlib import Path
-from nro45_merge import weather
+from mao_merge_45m import weather
 
 
 path_csv = Path("/path/to/data.csv")
@@ -50,7 +50,7 @@ path_zarr = accelerometer.convert(path_csv)
 
 ```python
 from pathlib import Path
-from nro45_merge import merge
+from mao_merge_45m import merge
 
 
 path_correlator = Path("/path/to/formatted/correlator.zarr")

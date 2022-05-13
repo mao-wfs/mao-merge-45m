@@ -1,5 +1,5 @@
 # third-party packages
-import nro45_merge
+import mao_merge_45m
 
 
 # constants
@@ -9,8 +9,8 @@ VERSION: str = "0.1.0"
 
 # test functions
 def test_author() -> None:
-    assert nro45_merge.__author__ == AUTHOR
+    assert mao_merge_45m.__author__ == AUTHOR
 
 
 def test_version() -> None:
-    assert nro45_merge.__version__ == VERSION
+    assert mao_merge_45m.__version__ == VERSION
