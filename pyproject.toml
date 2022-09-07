@@ -19,7 +19,7 @@ xarray = "^2022.3"
 xarray-dataclasses = "^1.1"
 zarr = "^2.11"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 black = "^22.3"
 ipython = "^8.2"
 myst-parser = "^0.17"
@@ -28,5 +28,5 @@ pytest = "^7.1"
 sphinx = "^4.5"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
