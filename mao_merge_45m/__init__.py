@@ -6,6 +6,7 @@ __version__ = "0.1.0"
 # submodules
 from . import accelerometer
 from . import antenna
+from . import antenna_50_sps
 from . import correlator
 from . import merge
 from . import weather
