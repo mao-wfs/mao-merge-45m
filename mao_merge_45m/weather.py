@@ -71,7 +71,7 @@ def convert(
             index_col=0,
             parse_dates=True,
         )
-        df = df.append(df_).drop_duplicates()
+        df = pd.concat([df, df_]).drop_duplicates()
 
     # write DataFrame(s) to the Zarr file
     ds = cast(xr.Dataset, df.to_xarray())

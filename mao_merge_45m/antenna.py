@@ -106,7 +106,7 @@ def convert(
         index = pd.to_datetime(df_.index, format=DATE_FORMAT)
         df_.set_index(index, inplace=True)
 
-        df = df.append(df_)
+        df = pd.concat([df, df_])
 
     # write DataFrame(s) to the Zarr file
     ds = Antenna.new(df.antenna_azimuth, df.antenna_elevation)
