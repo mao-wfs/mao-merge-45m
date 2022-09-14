@@ -1,14 +1,15 @@
 # standard library
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal, Optional, Sequence, Union
+from typing import Literal, Optional, Sequence, Union, Tuple
 
 
 # third-party packages
 import numpy as np
 import pandas as pd
+import xarray as xr
 from dask.diagnostics import ProgressBar
-from xarray_dataclasses import AsDataset, Attr, Data, Dataof
+from xarray_dataclasses import AsDataArray, AsDataset, Attr, Data, Dataof, Coord
 
 
 # constants
