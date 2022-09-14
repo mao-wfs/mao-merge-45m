@@ -40,56 +40,56 @@ class Array(AsDataArray):
 
 @dataclass
 class A1:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A1"
     units: Attr[str] = "K"
 
 
 @dataclass
 class A2:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A2"
     units: Attr[str] = "K"
 
 
 @dataclass
 class A3:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A3"
     units: Attr[str] = "K"
 
 
 @dataclass
 class A4:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A4"
     units: Attr[str] = "K"
 
 
 @dataclass
 class A5:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A5"
     units: Attr[str] = "K"
 
 
 @dataclass
 class A6:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A6"
     units: Attr[str] = "K"
 
 
 @dataclass
 class A7:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A7"
     units: Attr[str] = "K"
 
 
 @dataclass
 class A8:
-    data: Data[T, float] = 0.0
+    data: Data[Time, float] = 0.0
     long_name: Attr[str] = "SAM45 A8"
     units: Attr[str] = "K"
 
