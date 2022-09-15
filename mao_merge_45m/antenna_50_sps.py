@@ -107,6 +107,7 @@ def get_df(
         parse_dates=[[1, 2]],
         index_col="1_2",
         usecols=range(1, 8),
+        date_parser=partial(pd.to_datetime, format=LOG_TIMEFMT),
     ).astype(float)
 
 
