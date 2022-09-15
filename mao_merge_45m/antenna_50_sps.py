@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal, Optional, Sequence, Union
+from functools import partial
 
 
 # third-party packages
@@ -22,7 +23,7 @@ LOG_COLS = (
     "subref_Z2",
 )
 JST_HOURS = np.timedelta64(9, "h")
-
+LOG_TIMEFMT = "%y%m%d %H%M%S.%f"
 
 # type hints
 T = Literal["time"]
