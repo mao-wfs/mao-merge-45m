@@ -100,16 +100,23 @@ def get_df(
     index: int,
 ) -> pd.DataFrame:
     """Helper function."""
-    return pd.read_csv(
-        path_log,
-        sep="\s+",
-        header=None,
-        skiprows=lambda row: row % 10 != index,
-        parse_dates=[[1, 2]],
-        index_col="1_2",
-        usecols=range(1, 8),
-        date_parser=partial(pd.to_datetime, format=LOG_TIMEFMT),
-    ).astype(float)
+    return (
+        pd.read_csv(
+            path_log,
+            sep="\s+",
+            header=None,
+            skiprows=lambda row: row % 10 != index,
+            parse_dates=[[1, 2]],
+            index_col="1_2",
+            usecols=range(1, 8),
+            date_parser=partial(pd.to_datetime, format=LOG_TIMEFMT),
+        )
+        .astype(float)
+        .groupby(level=0)
+        .last()
+        .resample("100 ms")
+        .interpolate()
+    )
 
 
 def convert(
