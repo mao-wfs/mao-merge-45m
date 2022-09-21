@@ -193,8 +193,8 @@ def convert(
                 LOG_COLS[2]: real_el,
                 LOG_COLS[3]: real_X,
                 LOG_COLS[4]: real_Y,
-                LOG_COLS[5]: real_Z2,
-                LOG_COLS[6]: real_Z1,
+                LOG_COLS[5]: real_Z1,
+                LOG_COLS[6]: real_Z2,
             },
             index=pd.Index(index, name=LOG_COLS[0]),
         )
