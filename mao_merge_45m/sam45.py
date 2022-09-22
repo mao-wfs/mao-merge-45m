@@ -128,7 +128,6 @@ def convert(
     path_zarr: Optional[Path] = None,
     ch_min: int = 0,
     ch_max: int = 4096,
-    T_AMB: float = 273.0,
     length_per_chunk: int = 1000000,
     overwrite: bool = False,
     progress: bool = False,
@@ -142,7 +141,6 @@ def convert(
         path_log: Path(s) of the raw SAM45 log file(s).
         ch_min: Minimum channel used for channel binning.
         ch_max: Maximum channel used for channel binning.
-        T_AMB: Ambient temperature for intensity calibration.
         path_zarr: Path of the formatted Zarr file (optional).
         length_per_chunk: Length per chunk in the Zarr file.
         overwrite: Whether to overwrite the formatted Zarr file if exists.
@@ -183,11 +181,11 @@ def convert(
             mode = data["mode"][where]
             time = data["time"][where]
 
-            calibrated = (
-                T_AMB
-                * (spec[mode == "ON"] - spec[mode == "SKY"])
-                / (spec[mode == "R"] - spec[mode == "SKY"])
-            )
+            on = spec[mode == "ON"]
+            off = spec[mode == "OFF"][0]  # 1st off source
+            zero = spec[mode == "ZERO"]
+            calibrated = (on - off) / (off - zero)
+
             datetime = pd.to_datetime(time[mode == "ON"], format=LOG_TIMEFMT)
             ds_[array] = Array.new(datetime.to_numpy(), calibrated)
 
