@@ -14,9 +14,9 @@ from dask.diagnostics import ProgressBar
 # main features
 def merge(
     path_correlator_zarr: Path,
-    path_accelerometer_zarr: Path,
-    path_weather_zarr: Path,
-    path_antenna_zarr: Path,
+    path_accelerometer_zarr: Optional[Path] = None,
+    path_weather_zarr: Optional[Path] = None,
+    path_antenna_zarr: Optional[Path] = None,
     path_merge_zarr: Optional[Path] = None,
     interpolation: str = "linear",
     in_place: bool = False,
@@ -30,7 +30,7 @@ def merge(
         path_accelerometer_zarr: Path of the accelerometer Zarr file.
         path_weather_zarr: Path of the weather Zarr file.
         path_antenna_zarr: Path of the antenna Zarr file.
-        path_merge_zarr: Path of the merge Zarr file (optional).
+        path_merge_zarr: Path of the merge Zarr file.
         interpolation: Method of interpolation of log data.
         in_place: When True, log data are added to the correlator Zarr file.
         overwrite: Whether to overwrite the merge Zarr file if exists.
@@ -54,37 +54,28 @@ def merge(
     if not in_place and not overwrite and path_merge_zarr.exists():
         raise FileExistsError(f"{path_merge_zarr} already exists.")
 
-    # open all Zarr files
+    # create (overwrite) the merge Zarr
     correlator = xr.open_zarr(path_correlator_zarr)
-    accelerometer = xr.open_zarr(path_accelerometer_zarr)
-    weather = xr.open_zarr(path_weather_zarr)
-    antenna = xr.open_zarr(path_antenna_zarr)
 
-    # move data variables to coordinates
-    accelerometer = xr.Dataset(coords=accelerometer.variables)
-    weather = xr.Dataset(coords=weather.variables)
-    antenna = xr.Dataset(coords=antenna.variables)
+    if not in_place:
+        correlator.to_zarr(path_merge_zarr, mode="w")
 
-    # interpolate log data to fit the time axis of the correlator
-    accelerometer = accelerometer.interp_like(correlator, interpolation)
-    weather = weather.interp_like(correlator, interpolation)
-    antenna = antenna.interp_like(correlator, interpolation)
+    # append the other Zarrs to the merge Zarr
+    for path in (
+        path_accelerometer_zarr,
+        path_weather_zarr,
+        path_antenna_zarr,
+    ):
+        if path is None:
+            continue
 
-    # append log data to the correlator or create the merge Zarr file
-    if progress:
-        bar = ProgressBar()
-    else:
-        bar = ProgressBar(float("inf"))
+        ds = xr.Dataset(coords=xr.open_zarr(path).variables)
+        ds = ds.interp_like(correlator, interpolation)
 
-    with bar:
-        if in_place:
-            accelerometer = accelerometer.merge(weather)
-            accelerometer = accelerometer.merge(antenna)
-            accelerometer.to_zarr(path_correlator_zarr, mode="a")
+        if progress:
+            with ProgressBar():
+                ds.to_zarr(path_merge_zarr, mode="a")
         else:
-            correlator = correlator.merge(accelerometer)
-            correlator = correlator.merge(weather)
-            correlator = correlator.merge(antenna)
-            correlator.to_zarr(path_merge_zarr)
+            ds.to_zarr(path_merge_zarr, mode="a")
 
     return path_merge_zarr
