@@ -54,11 +54,10 @@ def test_merge() -> None:
         # merge (Zarrs -> Zarr)
         path_fmt = merge.merge(
             path_corr,
+            None,
             path_acc,
             path_wea,
             path_ant,
-            None,
-            path_dir / "distribution.zarr",
         )
 
         # comparison
