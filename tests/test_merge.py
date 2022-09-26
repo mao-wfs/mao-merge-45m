@@ -57,6 +57,7 @@ def test_merge() -> None:
             path_acc,
             path_wea,
             path_ant,
+            None,
             path_dir / "distribution.zarr",
         )
 
