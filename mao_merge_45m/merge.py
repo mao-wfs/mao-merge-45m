@@ -17,6 +17,7 @@ def merge(
     path_accelerometer_zarr: Optional[Path] = None,
     path_weather_zarr: Optional[Path] = None,
     path_antenna_zarr: Optional[Path] = None,
+    path_sam45_zarr: Optional[Path] = None,
     path_merge_zarr: Optional[Path] = None,
     interpolation: str = "linear",
     in_place: bool = False,
@@ -30,6 +31,7 @@ def merge(
         path_accelerometer_zarr: Path of the accelerometer Zarr file.
         path_weather_zarr: Path of the weather Zarr file.
         path_antenna_zarr: Path of the antenna Zarr file.
+        path_sam45_zarr: Path of the SAM45 Zarr file.
         path_merge_zarr: Path of the merge Zarr file.
         interpolation: Method of interpolation of log data.
         in_place: When True, log data are added to the correlator Zarr file.
@@ -65,6 +67,7 @@ def merge(
         path_accelerometer_zarr,
         path_weather_zarr,
         path_antenna_zarr,
+        path_sam45_zarr,
     ):
         if path is None:
             continue
