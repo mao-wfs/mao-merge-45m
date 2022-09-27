@@ -46,6 +46,28 @@ path_csv = Path("/path/to/data.csv")
 path_zarr = accelerometer.convert(path_csv)
 ```
 
+### Antenna log (normal 10-sps format)
+
+```python
+from pathlib import Path
+from mao_merge_45m import antenna
+
+
+path_log = Path("/path/to/data.txt")
+path_zarr = antenna.convert(path_log)
+```
+
+### Antenna log (new 50-sps format)
+
+```python
+from pathlib import Path
+from mao_merge_45m import antenna_50_sps
+
+
+path_log = Path("/path/to/data.txt")
+path_zarr = antenna_50_sps.convert(path_log)
+```
+
 ## Merge formatted data into a single Zarr file
 
 ```python
