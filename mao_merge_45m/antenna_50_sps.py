@@ -122,6 +122,7 @@ def get_df(
 def convert(
     path_log: Union[Sequence[Path], Path],
     path_zarr: Optional[Path] = None,
+    *,
     length_per_chunk: int = 1000000,
     overwrite: bool = False,
     progress: bool = False,

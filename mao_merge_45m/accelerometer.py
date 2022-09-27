@@ -49,6 +49,7 @@ Data = pd.DataFrame
 def convert(
     path_raw_zarr: Union[Sequence[Path], Path],
     path_fmt_zarr: Optional[Path] = None,
+    *,
     length_per_chunk: int = 1000000,
     overwrite: bool = False,
     progress: bool = False,
@@ -120,6 +121,7 @@ def convert(
 def to_zarr(
     path_gbd: Path,
     path_zarr: Optional[Path] = None,
+    *,
     length_per_chunk: int = 1000000,
     encoding: str = "shift-jis",
     overwrite: bool = False,
