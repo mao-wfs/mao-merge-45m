@@ -204,7 +204,7 @@ def convert(
         ds["A7"].values,
         ds["A8"].values,
     )
-    ds = ds.assign_coords(time=ds.time - JST_HOURS)
+    ds = ds.assign_coords(time=ds_.time - JST_HOURS)
     ds = ds.chunk(length_per_chunk)
 
     if progress:
