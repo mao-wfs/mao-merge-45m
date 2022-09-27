@@ -78,13 +78,15 @@ from mao_merge_45m import merge
 path_correlator = Path("/path/to/formatted/correlator.zarr")
 path_accelerometer = Path("/path/to/formatted/accelerometer.zarr")
 path_weather = Path("/path/to/formatted/weather.zarr")
+path_antenna = Path("/path/to/formatted/antenna.zarr")
 path_merged = Path("/path/to/merged.zarr")
 
 
 merge.merge(
     path_correlator,
-    path_accelerometer,
     path_weather,
-    path_merged,
+    path_accelerometer_zarr=path_accelerometer,
+    path_weather_zarr=path_weather,
+    path_antenna_zarr=path_antenna,
 )
 ```
