@@ -126,6 +126,7 @@ class SAM45(AsDataset):
 def convert(
     path_log: Union[Sequence[Path], Path],
     path_zarr: Optional[Path] = None,
+    *,
     ch_min: int = 0,
     ch_max: int = 4096,
     length_per_chunk: int = 1000000,

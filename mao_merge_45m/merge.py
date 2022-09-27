@@ -15,6 +15,7 @@ from dask.diagnostics import ProgressBar
 def merge(
     path_correlator_zarr: Path,
     path_merged_zarr: Optional[Path] = None,
+    *,
     path_accelerometer_zarr: Optional[Path] = None,
     path_weather_zarr: Optional[Path] = None,
     path_antenna_zarr: Optional[Path] = None,

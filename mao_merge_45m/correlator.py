@@ -54,6 +54,7 @@ CORR_UNIT = "Arbitrary unit"
 def convert(
     path_raw_zarr: Path,
     path_fmt_zarr: Optional[Path] = None,
+    *,
     bin_width: int = 8,
     overwrite: bool = False,
     progress: bool = False,
@@ -170,6 +171,7 @@ def convert(
 def to_zarr(
     path_vdif: Path,
     path_zarr: Optional[Path] = None,
+    *,
     seconds_per_chunk: int = 60,
     overwrite: bool = False,
     progress: bool = False,
@@ -273,6 +275,7 @@ def to_zarr(
 def to_vdif(
     path_zarr: Path,
     path_vdif: Optional[Path] = None,
+    *,
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
