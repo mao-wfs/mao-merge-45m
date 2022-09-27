@@ -195,16 +195,16 @@ def convert(
     # write DataFrame(s) to the Zarr file
     ds = xr.concat(dl, dim="time")
     ds = SAM45.new(
-        ds["A1"].values,
-        ds["A2"].values,
-        ds["A3"].values,
-        ds["A4"].values,
-        ds["A5"].values,
-        ds["A6"].values,
-        ds["A7"].values,
-        ds["A8"].values,
+        ds["A1"],
+        ds["A2"],
+        ds["A3"],
+        ds["A4"],
+        ds["A5"],
+        ds["A6"],
+        ds["A7"],
+        ds["A8"],
     )
-    ds = ds.assign_coords(time=ds_.time - JST_HOURS)
+    ds = ds.assign_coords(time=ds.time - JST_HOURS)
     ds = ds.chunk(length_per_chunk)
 
     if progress:
