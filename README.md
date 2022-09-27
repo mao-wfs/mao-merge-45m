@@ -68,6 +68,17 @@ path_log = Path("/path/to/data.txt")
 path_zarr = antenna_50_sps.convert(path_log)
 ```
 
+### SAM45 log (text dumped by `sldump`)
+
+```python
+from pathlib import Path
+from mao_merge_45m import sam45
+
+
+path_log = Path("/path/to/data.txt")
+path_zarr = sam45.convert(path_log)
+```
+
 ## Merge formatted data into a single Zarr file
 
 ```python
@@ -79,6 +90,7 @@ path_correlator = Path("/path/to/formatted/correlator.zarr")
 path_accelerometer = Path("/path/to/formatted/accelerometer.zarr")
 path_weather = Path("/path/to/formatted/weather.zarr")
 path_antenna = Path("/path/to/formatted/antenna.zarr")
+path_sam45 = Path("/path/to/formatted/sam45.zarr")
 path_merged = Path("/path/to/merged.zarr")
 
 
@@ -88,5 +100,6 @@ merge.merge(
     path_accelerometer_zarr=path_accelerometer,
     path_weather_zarr=path_weather,
     path_antenna_zarr=path_antenna,
+    path_sam45_zarr=path_sam45,
 )
 ```
