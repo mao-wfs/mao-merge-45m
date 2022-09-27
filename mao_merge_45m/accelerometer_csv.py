@@ -14,8 +14,11 @@ from xarray_dataclasses import AsDataset, Attr, Data, Dataof
 
 # constants
 JST_HOURS = np.timedelta64(9, "h")
+LOG_DATECOLS = [1, 2, 3]
+LOG_ENCODING = "shift-jis"
 LOG_TIMEFMT = "%Y/%m/%d %H:%M:%S %f"
-
+LOG_UNITSSTR = "NO.,Date,Time,us,mV,mV,mV,mV,mV,mV,ﾟC,ﾟC"
+LOG_UNITSROW = 27
 
 # type hints
 Time = Literal["time"]
@@ -127,6 +130,7 @@ def convert(
     df = pd.DataFrame()
 
     for path in path_log:
+        assert_units(path)
         df = pd.concat([df, read_csv(path)])
 
     ds = Accelerometer.new(
@@ -151,6 +155,14 @@ def convert(
     return path_zarr
 
 
+def assert_units(path: Path) -> None:
+    """Check if units of an accelerometer log is valid."""
+    with open(path, encoding=LOG_ENCODING) as f:
+        lines = f.readlines(4096)
+
+    assert lines[LOG_UNITSROW].strip() == LOG_UNITSSTR
+
+
 def read_csv(path: Path) -> pd.DataFrame:
     """Custom read_csv function dedicated to accelerometer logs."""
     date_parser = partial(pd.to_datetime, format=LOG_TIMEFMT)
@@ -159,12 +171,12 @@ def read_csv(path: Path) -> pd.DataFrame:
         pd.read_csv(
             path,
             header=None,
-            skiprows=28,
-            parse_dates=[[1, 2, 3]],
-            index_col="1_2_3",
-            usecols=range(1, 12),
+            skiprows=LOG_UNITSROW + 1,
+            parse_dates=[LOG_DATECOLS],
+            index_col="_".join(map(str, LOG_DATECOLS)),
+            usecols=range(1, len(LOG_UNITSSTR.split(","))),
             date_parser=date_parser,
-            encoding="shift-jis",
+            encoding=LOG_ENCODING,
         )
         .astype(float)
         .groupby(level=0)
