@@ -96,7 +96,7 @@ path_merged = Path("/path/to/merged.zarr")
 
 merge.merge(
     path_correlator,
-    path_weather,
+    path_merged,
     path_accelerometer_zarr=path_accelerometer,
     path_weather_zarr=path_weather,
     path_antenna_zarr=path_antenna,
