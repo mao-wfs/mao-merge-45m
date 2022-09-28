@@ -118,7 +118,29 @@ def convert(
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
-    """Convert accelerometer log(s) to a formatted Zarr file."""
+    """Convert raw accelerometer log(s) to a formatted Zarr file.
+
+    This function will make a one-dimensional accelerometer outputs
+    with time metadata derived from the raw CSV file(s).
+
+    Args:
+        path_log: Path(s) of the raw accelerometer CSV file(s).
+        path_zarr: Path of the formatted Zarr file (optional).
+        length_per_chunk: Length per chunk in the Zarr file.
+        overwrite: Whether to overwrite the formatted Zarr file if exists.
+        progress: Whether to show a progress bar.
+
+    Returns:
+        Path of the formatted Zarr file.
+
+    Raises:
+        FileExistsError: Raised if the formatted Zarr file exists
+            and overwriting is not allowed (default).
+
+    Notes:
+        The timezone of the Zarr file is not JST but UTC.
+
+    """
     if isinstance(path_log, Path):
         path_log = [path_log]
 
