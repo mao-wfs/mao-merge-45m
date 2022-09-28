@@ -20,6 +20,7 @@ LOG_TIMEFMT = "%Y/%m/%d %H:%M:%S %f"
 LOG_UNITSSTR = "NO.,Date,Time,us,mV,mV,mV,mV,mV,mV,ﾟC,ﾟC"
 LOG_UNITSROW = 27
 
+
 # type hints
 Time = Literal["time"]
 
@@ -181,6 +182,6 @@ def read_csv(path: Path) -> pd.DataFrame:
         .astype(float)
         .groupby(level=0)
         .last()
-        .resample("100 ms")
+        .resample("10 ms")
         .interpolate()
     )
