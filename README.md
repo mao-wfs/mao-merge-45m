@@ -35,6 +35,17 @@ path_raw_zarr = accelerometer.to_zarr(path_gbd)
 path_fmt_zarr = accelerometer.convert(path_raw_zarr)
 ```
 
+### Accelerometer log (CSV format)
+
+```python
+from pathlib import Path
+from mao_merge_45m import accelerometer_csv
+
+
+path_csv = Path("/path/to/data.csv")
+path_zarr = accelerometer_csv.convert(path_csv)
+```
+
 ### Weather log
 
 ```python
