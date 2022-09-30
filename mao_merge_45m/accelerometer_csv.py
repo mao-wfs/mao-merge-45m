@@ -156,6 +156,8 @@ def convert(
         assert_units(path)
         df = pd.concat([df, read_csv(path)])
 
+    df = df.groupby(level=0).last()
+
     ds = Accelerometer.new(
         accelerometer_ch1=df[4],
         accelerometer_ch2=df[5],
