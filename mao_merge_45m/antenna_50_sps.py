@@ -17,6 +17,8 @@ LOG_COLS = (
     "time",
     "antenna_azimuth",
     "antenna_elevation",
+    "collimator_azimuth",
+    "collimator_elevation",
     "subref_X",
     "subref_Y",
     "subref_Z1",
@@ -41,6 +43,20 @@ class Azimuth:
 class Elevation:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Elevation"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class CollimatorAzimuth:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Collimator azimuth"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class CollimatorElevation:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Collimator elevation"
     units: Attr[str] = "degree"
 
 
@@ -81,6 +97,12 @@ class Antenna(AsDataset):
 
     antenna_elevation: Dataof[Elevation] = 0.0
     """Elevation of an antenna."""
+
+    collimator_azimuth: Dataof[CollimatorAzimuth] = 0.0
+    """Azimuth of the collimator."""
+
+    collimator_elevation: Dataof[CollimatorElevation] = 0.0
+    """Elevation of the collimator."""
 
     subref_X: Dataof[SubrefX] = 0.0
     """X position of a subref."""
@@ -170,6 +192,8 @@ def convert(
         # read data as dataframes
         real_az = get_df(path, 0)
         real_el = get_df(path, 1)
+        col_az = get_df(path, 2)
+        col_el = get_df(path, 3)
         real_X = get_df(path, 4)
         real_Y = get_df(path, 5)
         real_Z1 = get_df(path, 6)
@@ -183,6 +207,8 @@ def convert(
         # reshape data
         real_az = real_az.to_numpy().flatten()
         real_el = real_el.to_numpy().flatten()
+        col_az = col_az.to_numpy().flatten()
+        col_el = col_el.to_numpy().flatten()
         real_X = real_X.to_numpy().flatten()
         real_Y = real_Y.to_numpy().flatten()
         real_Z1 = real_Z1.to_numpy().flatten()
@@ -192,10 +218,12 @@ def convert(
             data={
                 LOG_COLS[1]: real_az,
                 LOG_COLS[2]: real_el,
-                LOG_COLS[3]: real_X,
-                LOG_COLS[4]: real_Y,
-                LOG_COLS[5]: real_Z1,
-                LOG_COLS[6]: real_Z2,
+                LOG_COLS[3]: col_az,
+                LOG_COLS[4]: col_el,
+                LOG_COLS[5]: real_X,
+                LOG_COLS[6]: real_Y,
+                LOG_COLS[7]: real_Z1,
+                LOG_COLS[8]: real_Z2,
             },
             index=pd.Index(index, name=LOG_COLS[0]),
         )
@@ -205,6 +233,8 @@ def convert(
     ds = Antenna.new(
         df.antenna_azimuth,
         df.antenna_elevation,
+        df.collimator_azimuth,
+        df.collimator_elevation,
         df.subref_X,
         df.subref_Y,
         df.subref_Z1,
