@@ -33,16 +33,16 @@ T = Literal["time"]
 
 # dataclasses
 @dataclass
-class Azimuth:
+class AntennaAzimuth:
     data: Data[T, float] = 0.0
-    long_name: Attr[str] = "Azimuth"
+    long_name: Attr[str] = "Antenna azimuth"
     units: Attr[str] = "degree"
 
 
 @dataclass
-class Elevation:
+class AntennaElevation:
     data: Data[T, float] = 0.0
-    long_name: Attr[str] = "Elevation"
+    long_name: Attr[str] = "Antenna elevation"
     units: Attr[str] = "degree"
 
 
@@ -92,11 +92,11 @@ class SubrefZ2:
 class Antenna(AsDataset):
     """Representation of antenna logs in xarray."""
 
-    antenna_azimuth: Dataof[Azimuth] = 0.0
-    """Azimuth of an antenna."""
+    antenna_azimuth: Dataof[AntennaAzimuth] = 0.0
+    """Azimuth of the antenna."""
 
-    antenna_elevation: Dataof[Elevation] = 0.0
-    """Elevation of an antenna."""
+    antenna_elevation: Dataof[AntennaElevation] = 0.0
+    """Elevation of the antenna."""
 
     collimator_azimuth: Dataof[CollimatorAzimuth] = 0.0
     """Azimuth of the collimator."""
