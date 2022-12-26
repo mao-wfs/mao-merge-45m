@@ -17,6 +17,8 @@ LOG_COLS = (
     "time",
     "antenna_azimuth",
     "antenna_elevation",
+    "collimator_azimuth",
+    "collimator_elevation",
     "subref_X",
     "subref_Y",
     "subref_Z1",
@@ -31,16 +33,30 @@ T = Literal["time"]
 
 # dataclasses
 @dataclass
-class Azimuth:
+class AntennaAzimuth:
     data: Data[T, float] = 0.0
-    long_name: Attr[str] = "Azimuth"
+    long_name: Attr[str] = "Antenna azimuth"
     units: Attr[str] = "degree"
 
 
 @dataclass
-class Elevation:
+class AntennaElevation:
     data: Data[T, float] = 0.0
-    long_name: Attr[str] = "Elevation"
+    long_name: Attr[str] = "Antenna elevation"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class CollimatorAzimuth:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Collimator azimuth"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class CollimatorElevation:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Collimator elevation"
     units: Attr[str] = "degree"
 
 
@@ -76,11 +92,17 @@ class SubrefZ2:
 class Antenna(AsDataset):
     """Representation of antenna logs in xarray."""
 
-    antenna_azimuth: Dataof[Azimuth] = 0.0
-    """Azimuth of an antenna."""
+    antenna_azimuth: Dataof[AntennaAzimuth] = 0.0
+    """Azimuth of the antenna."""
 
-    antenna_elevation: Dataof[Elevation] = 0.0
-    """Elevation of an antenna."""
+    antenna_elevation: Dataof[AntennaElevation] = 0.0
+    """Elevation of the antenna."""
+
+    collimator_azimuth: Dataof[CollimatorAzimuth] = 0.0
+    """Azimuth of the collimator."""
+
+    collimator_elevation: Dataof[CollimatorElevation] = 0.0
+    """Elevation of the collimator."""
 
     subref_X: Dataof[SubrefX] = 0.0
     """X position of a subref."""
@@ -168,34 +190,40 @@ def convert(
 
     for path in path_log:
         # read data as dataframes
-        real_az = get_df(path, 0)
-        real_el = get_df(path, 1)
-        real_X = get_df(path, 4)
-        real_Y = get_df(path, 5)
-        real_Z1 = get_df(path, 6)
-        real_Z2 = get_df(path, 7)
+        ant_az = get_df(path, 0)
+        ant_el = get_df(path, 1)
+        col_az = get_df(path, 2)
+        col_el = get_df(path, 3)
+        subref_X = get_df(path, 4)
+        subref_Y = get_df(path, 5)
+        subref_Z1 = get_df(path, 6)
+        subref_Z2 = get_df(path, 7)
 
         # make index
-        index = real_az.index
+        index = ant_az.index
         index = index.append(index[-1:] + pd.Timedelta("80 ms"))
         index = index.to_series().asfreq("20 ms").index
 
         # reshape data
-        real_az = real_az.to_numpy().flatten()
-        real_el = real_el.to_numpy().flatten()
-        real_X = real_X.to_numpy().flatten()
-        real_Y = real_Y.to_numpy().flatten()
-        real_Z1 = real_Z1.to_numpy().flatten()
-        real_Z2 = real_Z2.to_numpy().flatten()
+        ant_az = ant_az.to_numpy().flatten()
+        ant_el = ant_el.to_numpy().flatten()
+        col_az = col_az.to_numpy().flatten()
+        col_el = col_el.to_numpy().flatten()
+        subref_X = subref_X.to_numpy().flatten()
+        subref_Y = subref_Y.to_numpy().flatten()
+        subref_Z1 = subref_Z1.to_numpy().flatten()
+        subref_Z2 = subref_Z2.to_numpy().flatten()
 
         df_ = pd.DataFrame(
             data={
-                LOG_COLS[1]: real_az,
-                LOG_COLS[2]: real_el,
-                LOG_COLS[3]: real_X,
-                LOG_COLS[4]: real_Y,
-                LOG_COLS[5]: real_Z1,
-                LOG_COLS[6]: real_Z2,
+                LOG_COLS[1]: ant_az,
+                LOG_COLS[2]: ant_el,
+                LOG_COLS[3]: col_az,
+                LOG_COLS[4]: col_el,
+                LOG_COLS[5]: subref_X,
+                LOG_COLS[6]: subref_Y,
+                LOG_COLS[7]: subref_Z1,
+                LOG_COLS[8]: subref_Z2,
             },
             index=pd.Index(index, name=LOG_COLS[0]),
         )
@@ -205,6 +233,8 @@ def convert(
     ds = Antenna.new(
         df.antenna_azimuth,
         df.antenna_elevation,
+        df.collimator_azimuth,
+        df.collimator_elevation,
         df.subref_X,
         df.subref_Y,
         df.subref_Z1,
