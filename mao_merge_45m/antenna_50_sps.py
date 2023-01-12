@@ -13,7 +13,7 @@ from xarray_dataclasses import AsDataset, Attr, Data, Dataof
 
 
 # constants
-LOG_COLS = (
+LOG_COLS_REAL = (
     "time",
     "antenna_azimuth",
     "antenna_elevation",
@@ -23,6 +23,15 @@ LOG_COLS = (
     "subref_Y",
     "subref_Z1",
     "subref_Z2",
+)
+LOG_COLS_PROG = (
+    "time",
+    "prog_antenna_azimuth",
+    "prog_antenna_elevation",
+    "prog_subref_X",
+    "prog_subref_Y",
+    "prog_subref_Z1",
+    "prog_subref_Z2",
 )
 JST_HOURS = np.timedelta64(9, "h")
 LOG_TIMEFMT = "%y%m%d %H%M%S.%f"
@@ -64,28 +73,70 @@ class CollimatorElevation:
 class SubrefX:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref X"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
 
 
 @dataclass
 class SubrefY:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref Y"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
 
 
 @dataclass
 class SubrefZ1:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref Z1"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
 
 
 @dataclass
 class SubrefZ2:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref Z2"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgAntennaAzimuth:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Antenna azimuth (prog)"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class ProgAntennaElevation:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Antenna elevation (prog)"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class ProgSubrefX:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref X (prog)"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgSubrefY:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref Y (prog)"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgSubrefZ1:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref Z1 (prog)"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgSubrefZ2:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref Z2 (prog)"
+    units: Attr[str] = "mm"
 
 
 @dataclass
@@ -115,6 +166,24 @@ class Antenna(AsDataset):
 
     subref_Z2: Dataof[SubrefZ2] = 0.0
     """Z2 position of a subref."""
+
+    prog_antenna_azimuth: Dataof[ProgAntennaAzimuth] = 0.0
+    """Azimuth of the antenna (prog)."""
+
+    prog_antenna_elevation: Dataof[ProgAntennaElevation] = 0.0
+    """Elevation of the antenna (prog)."""
+
+    prog_subref_X: Dataof[ProgSubrefX] = 0.0
+    """X position of a subref (prog)."""
+
+    prog_subref_Y: Dataof[ProgSubrefY] = 0.0
+    """Y position of a subref (prog)."""
+
+    prog_subref_Z1: Dataof[ProgSubrefZ1] = 0.0
+    """Z1 position of a subref (prog)."""
+
+    prog_subref_Z2: Dataof[ProgSubrefZ2] = 0.0
+    """Z2 position of a subref (prog)."""
 
 
 def get_df(
@@ -184,8 +253,8 @@ def convert(
 
     # read log file(s) and convert them to DataFrame(s)
     df = pd.DataFrame(
-        columns=LOG_COLS[1:],
-        index=pd.DatetimeIndex([], name=LOG_COLS[0]),
+        columns=LOG_COLS_REAL[1:],
+        index=pd.DatetimeIndex([], name=LOG_COLS_REAL[0]),
     )
 
     for path in path_log:
@@ -216,16 +285,16 @@ def convert(
 
         df_ = pd.DataFrame(
             data={
-                LOG_COLS[1]: ant_az,
-                LOG_COLS[2]: ant_el,
-                LOG_COLS[3]: col_az,
-                LOG_COLS[4]: col_el,
-                LOG_COLS[5]: subref_X,
-                LOG_COLS[6]: subref_Y,
-                LOG_COLS[7]: subref_Z1,
-                LOG_COLS[8]: subref_Z2,
+                LOG_COLS_REAL[1]: ant_az,
+                LOG_COLS_REAL[2]: ant_el,
+                LOG_COLS_REAL[3]: col_az,
+                LOG_COLS_REAL[4]: col_el,
+                LOG_COLS_REAL[5]: subref_X,
+                LOG_COLS_REAL[6]: subref_Y,
+                LOG_COLS_REAL[7]: subref_Z1,
+                LOG_COLS_REAL[8]: subref_Z2,
             },
-            index=pd.Index(index, name=LOG_COLS[0]),
+            index=pd.Index(index, name=LOG_COLS_REAL[0]),
         )
         df = pd.concat([df, df_])
 
