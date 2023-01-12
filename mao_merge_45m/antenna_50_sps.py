@@ -186,20 +186,41 @@ class Antenna(AsDataset):
     """Z2 position of a subref (prog)."""
 
 
-def get_df(
+def get_df_real(
     path_log: Path,
     index: int,
 ) -> pd.DataFrame:
-    """Helper function."""
+    """Helper function to read measured values from a log."""
     return (
         pd.read_csv(
             path_log,
-            sep="\s+",
+            sep=r"\s+",
             header=None,
             skiprows=lambda row: row % 10 != index,
             parse_dates=[[1, 2]],
             index_col="1_2",
             usecols=range(1, 8),
+            date_parser=partial(pd.to_datetime, format=LOG_TIMEFMT),
+        )
+        .astype(float)
+        .groupby(level=0)
+        .last()
+        .resample("100 ms")
+        .interpolate()
+    )
+
+
+def get_df_prog(path_log: Path, index: int = 9) -> pd.DataFrame:
+    """Helper function to read programmed values from a log."""
+    return (
+        pd.read_csv(
+            path_log,
+            sep=r"\s+",
+            header=None,
+            skiprows=lambda row: row % 10 != index,
+            parse_dates=[[1, 2]],
+            index_col="1_2",
+            usecols=range(1, 9),
             date_parser=partial(pd.to_datetime, format=LOG_TIMEFMT),
         )
         .astype(float)
@@ -258,15 +279,15 @@ def convert(
     )
 
     for path in path_log:
-        # read data as dataframes
-        ant_az = get_df(path, 0)
-        ant_el = get_df(path, 1)
-        col_az = get_df(path, 2)
-        col_el = get_df(path, 3)
-        subref_X = get_df(path, 4)
-        subref_Y = get_df(path, 5)
-        subref_Z1 = get_df(path, 6)
-        subref_Z2 = get_df(path, 7)
+        # step 1: read measured values as dataframes
+        ant_az = get_df_real(path, 0)
+        ant_el = get_df_real(path, 1)
+        col_az = get_df_real(path, 2)
+        col_el = get_df_real(path, 3)
+        subref_X = get_df_real(path, 4)
+        subref_Y = get_df_real(path, 5)
+        subref_Z1 = get_df_real(path, 6)
+        subref_Z2 = get_df_real(path, 7)
 
         # make index
         index = ant_az.index
@@ -283,7 +304,7 @@ def convert(
         subref_Z1 = subref_Z1.to_numpy().flatten()
         subref_Z2 = subref_Z2.to_numpy().flatten()
 
-        df_ = pd.DataFrame(
+        df_real = pd.DataFrame(
             data={
                 LOG_COLS_REAL[1]: ant_az,
                 LOG_COLS_REAL[2]: ant_el,
@@ -296,7 +317,24 @@ def convert(
             },
             index=pd.Index(index, name=LOG_COLS_REAL[0]),
         )
-        df = pd.concat([df, df_])
+
+        # step 2: read programmed values as a dataframe
+        prog_all = get_df_prog(path)
+
+        df_prog = pd.DataFrame(
+            data={
+                LOG_COLS_PROG[1]: prog_all.iloc[:, 0],
+                LOG_COLS_PROG[2]: prog_all.iloc[:, 1],
+                LOG_COLS_PROG[3]: prog_all.iloc[:, 2],
+                LOG_COLS_PROG[4]: prog_all.iloc[:, 3],
+                LOG_COLS_PROG[5]: prog_all.iloc[:, 4],
+                LOG_COLS_PROG[6]: prog_all.iloc[:, 5],
+            },
+            index=pd.Index(prog_all.index, name=LOG_COLS_PROG[0]),
+        )
+
+        # step 3: merge dataframes
+        df = pd.concat([df, pd.concat([df_real, df_prog])])
 
     # write DataFrame(s) to the Zarr file
     ds = Antenna.new(
@@ -308,6 +346,12 @@ def convert(
         df.subref_Y,
         df.subref_Z1,
         df.subref_Z2,
+        df.prog_antenna_azimuth,
+        df.prog_antenna_elevation,
+        df.prog_subref_X,
+        df.prog_subref_Y,
+        df.prog_subref_Z1,
+        df.prog_subref_Z2,
     )
     ds = ds.assign_coords(time=ds.time - JST_HOURS)
     ds = ds.chunk(length_per_chunk)
