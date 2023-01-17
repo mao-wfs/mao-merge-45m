@@ -334,7 +334,7 @@ def convert(
         )
 
         # step 3: merge dataframes
-        df = pd.concat([df, pd.concat([df_real, df_prog])])
+        df = pd.concat([df, pd.concat([df_real, df_prog], axis=1)])
 
     # write DataFrame(s) to the Zarr file
     ds = Antenna.new(
