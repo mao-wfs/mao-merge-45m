@@ -228,6 +228,7 @@ def get_df_prog(path_log: Path, index: int = 9) -> pd.DataFrame:
         .last()
         .resample("100 ms")
         .interpolate()
+        .interpolate(method="pad")
     )
 
 
@@ -334,7 +335,8 @@ def convert(
         )
 
         # step 3: merge dataframes
-        df = pd.concat([df, pd.concat([df_real, df_prog], axis=1)])
+        df_all = pd.concat([df_real, df_prog], axis=1).interpolate(method="pad")
+        df = pd.concat([df, df_all])
 
     # write DataFrame(s) to the Zarr file
     ds = Antenna.new(
