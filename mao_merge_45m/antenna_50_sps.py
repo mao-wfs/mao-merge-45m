@@ -13,7 +13,7 @@ from xarray_dataclasses import AsDataset, Attr, Data, Dataof
 
 
 # constants
-LOG_COLS = (
+LOG_COLS_REAL = (
     "time",
     "antenna_azimuth",
     "antenna_elevation",
@@ -23,6 +23,15 @@ LOG_COLS = (
     "subref_Y",
     "subref_Z1",
     "subref_Z2",
+)
+LOG_COLS_PROG = (
+    "time",
+    "prog_antenna_azimuth",
+    "prog_antenna_elevation",
+    "prog_subref_X",
+    "prog_subref_Y",
+    "prog_subref_Z1",
+    "prog_subref_Z2",
 )
 JST_HOURS = np.timedelta64(9, "h")
 LOG_TIMEFMT = "%y%m%d %H%M%S.%f"
@@ -64,28 +73,70 @@ class CollimatorElevation:
 class SubrefX:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref X"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
 
 
 @dataclass
 class SubrefY:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref Y"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
 
 
 @dataclass
 class SubrefZ1:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref Z1"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
 
 
 @dataclass
 class SubrefZ2:
     data: Data[T, float] = 0.0
     long_name: Attr[str] = "Subref Z2"
-    units: Attr[str] = "mm?"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgAntennaAzimuth:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Antenna azimuth (prog)"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class ProgAntennaElevation:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Antenna elevation (prog)"
+    units: Attr[str] = "degree"
+
+
+@dataclass
+class ProgSubrefX:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref X (prog)"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgSubrefY:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref Y (prog)"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgSubrefZ1:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref Z1 (prog)"
+    units: Attr[str] = "mm"
+
+
+@dataclass
+class ProgSubrefZ2:
+    data: Data[T, float] = 0.0
+    long_name: Attr[str] = "Subref Z2 (prog)"
+    units: Attr[str] = "mm"
 
 
 @dataclass
@@ -116,16 +167,34 @@ class Antenna(AsDataset):
     subref_Z2: Dataof[SubrefZ2] = 0.0
     """Z2 position of a subref."""
 
+    prog_antenna_azimuth: Dataof[ProgAntennaAzimuth] = 0.0
+    """Azimuth of the antenna (prog)."""
 
-def get_df(
+    prog_antenna_elevation: Dataof[ProgAntennaElevation] = 0.0
+    """Elevation of the antenna (prog)."""
+
+    prog_subref_X: Dataof[ProgSubrefX] = 0.0
+    """X position of a subref (prog)."""
+
+    prog_subref_Y: Dataof[ProgSubrefY] = 0.0
+    """Y position of a subref (prog)."""
+
+    prog_subref_Z1: Dataof[ProgSubrefZ1] = 0.0
+    """Z1 position of a subref (prog)."""
+
+    prog_subref_Z2: Dataof[ProgSubrefZ2] = 0.0
+    """Z2 position of a subref (prog)."""
+
+
+def get_df_real(
     path_log: Path,
     index: int,
 ) -> pd.DataFrame:
-    """Helper function."""
+    """Helper function to read measured values from a log."""
     return (
         pd.read_csv(
             path_log,
-            sep="\s+",
+            sep=r"\s+",
             header=None,
             skiprows=lambda row: row % 10 != index,
             parse_dates=[[1, 2]],
@@ -138,6 +207,28 @@ def get_df(
         .last()
         .resample("100 ms")
         .interpolate()
+    )
+
+
+def get_df_prog(path_log: Path, index: int = 9) -> pd.DataFrame:
+    """Helper function to read programmed values from a log."""
+    return (
+        pd.read_csv(
+            path_log,
+            sep=r"\s+",
+            header=None,
+            skiprows=lambda row: row % 10 != index,
+            parse_dates=[[1, 2]],
+            index_col="1_2",
+            usecols=range(1, 9),
+            date_parser=partial(pd.to_datetime, format=LOG_TIMEFMT),
+        )
+        .astype(float)
+        .groupby(level=0)
+        .last()
+        .resample("100 ms")
+        .interpolate()
+        .interpolate(method="pad")
     )
 
 
@@ -184,20 +275,20 @@ def convert(
 
     # read log file(s) and convert them to DataFrame(s)
     df = pd.DataFrame(
-        columns=LOG_COLS[1:],
-        index=pd.DatetimeIndex([], name=LOG_COLS[0]),
+        columns=LOG_COLS_REAL[1:],
+        index=pd.DatetimeIndex([], name=LOG_COLS_REAL[0]),
     )
 
     for path in path_log:
-        # read data as dataframes
-        ant_az = get_df(path, 0)
-        ant_el = get_df(path, 1)
-        col_az = get_df(path, 2)
-        col_el = get_df(path, 3)
-        subref_X = get_df(path, 4)
-        subref_Y = get_df(path, 5)
-        subref_Z1 = get_df(path, 6)
-        subref_Z2 = get_df(path, 7)
+        # step 1: read measured values as dataframes
+        ant_az = get_df_real(path, 0)
+        ant_el = get_df_real(path, 1)
+        col_az = get_df_real(path, 2)
+        col_el = get_df_real(path, 3)
+        subref_X = get_df_real(path, 4)
+        subref_Y = get_df_real(path, 5)
+        subref_Z1 = get_df_real(path, 6)
+        subref_Z2 = get_df_real(path, 7)
 
         # make index
         index = ant_az.index
@@ -214,20 +305,38 @@ def convert(
         subref_Z1 = subref_Z1.to_numpy().flatten()
         subref_Z2 = subref_Z2.to_numpy().flatten()
 
-        df_ = pd.DataFrame(
+        df_real = pd.DataFrame(
             data={
-                LOG_COLS[1]: ant_az,
-                LOG_COLS[2]: ant_el,
-                LOG_COLS[3]: col_az,
-                LOG_COLS[4]: col_el,
-                LOG_COLS[5]: subref_X,
-                LOG_COLS[6]: subref_Y,
-                LOG_COLS[7]: subref_Z1,
-                LOG_COLS[8]: subref_Z2,
+                LOG_COLS_REAL[1]: ant_az,
+                LOG_COLS_REAL[2]: ant_el,
+                LOG_COLS_REAL[3]: col_az,
+                LOG_COLS_REAL[4]: col_el,
+                LOG_COLS_REAL[5]: subref_X,
+                LOG_COLS_REAL[6]: subref_Y,
+                LOG_COLS_REAL[7]: subref_Z1,
+                LOG_COLS_REAL[8]: subref_Z2,
             },
-            index=pd.Index(index, name=LOG_COLS[0]),
+            index=pd.Index(index, name=LOG_COLS_REAL[0]),
         )
-        df = pd.concat([df, df_])
+
+        # step 2: read programmed values as a dataframe
+        prog_all = get_df_prog(path)
+
+        df_prog = pd.DataFrame(
+            data={
+                LOG_COLS_PROG[1]: prog_all.iloc[:, 0],
+                LOG_COLS_PROG[2]: prog_all.iloc[:, 1],
+                LOG_COLS_PROG[3]: prog_all.iloc[:, 2],
+                LOG_COLS_PROG[4]: prog_all.iloc[:, 3],
+                LOG_COLS_PROG[5]: prog_all.iloc[:, 4],
+                LOG_COLS_PROG[6]: prog_all.iloc[:, 5],
+            },
+            index=pd.Index(prog_all.index, name=LOG_COLS_PROG[0]),
+        )
+
+        # step 3: merge dataframes
+        df_all = pd.concat([df_real, df_prog], axis=1).interpolate(method="pad")
+        df = pd.concat([df, df_all])
 
     # write DataFrame(s) to the Zarr file
     ds = Antenna.new(
@@ -239,6 +348,12 @@ def convert(
         df.subref_Y,
         df.subref_Z1,
         df.subref_Z2,
+        df.prog_antenna_azimuth,
+        df.prog_antenna_elevation,
+        df.prog_subref_X,
+        df.prog_subref_Y,
+        df.prog_subref_Z1,
+        df.prog_subref_Z2,
     )
     ds = ds.assign_coords(time=ds.time - JST_HOURS)
     ds = ds.chunk(length_per_chunk)
