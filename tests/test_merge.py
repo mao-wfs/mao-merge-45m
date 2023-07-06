@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 # third-party packages
 import xarray as xr
 from mao_merge_45m import accelerometer, antenna, correlator, merge, weather
+from xarray.testing import assert_allclose
 
 
 # constants
@@ -63,4 +64,4 @@ def test_merge() -> None:
         # comparison
         ds_fmt = xr.open_zarr(path_fmt)
         ds_test = xr.open_zarr(TEST_DIST)
-        assert (ds_fmt == ds_test).all()
+        assert_allclose(ds_fmt, ds_test)
