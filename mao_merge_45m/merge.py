@@ -2,6 +2,7 @@ __all__ = ["merge"]
 
 
 # standard library
+from math import inf
 from pathlib import Path
 from typing import Optional
 
@@ -9,6 +10,7 @@ from typing import Optional
 import numpy as np
 import xarray as xr
 from dask.diagnostics import ProgressBar
+from zarr import ZipStore
 
 
 # main features
@@ -59,7 +61,7 @@ def merge(
         correlator_time_offset, "ms"
     )
 
-    # append metadata Zarrs to the correlator Zarr
+    # append metadata Zarrs to the correlator dataset
     for path in (
         path_accelerometer_zarr,
         path_weather_zarr,
@@ -72,10 +74,12 @@ def merge(
         ds = xr.open_zarr(path).interp_like(correlator, interpolation)
         correlator.coords.update(ds)
 
-    if progress:
-        with ProgressBar():
-            correlator.to_zarr(path_merged_zarr, mode="a")
-    else:
-        correlator.to_zarr(path_merged_zarr, mode="a")
+    # save the merged dataset to the merged Zarr
+    with ProgressBar(0.0 if progress else inf):
+        if path_merged_zarr.suffix == ".zip":
+            with ZipStore(path_merged_zarr, mode="w") as store:
+                correlator.to_zarr(store)
+        else:
+            correlator.to_zarr(path_merged_zarr, mode="w")
 
     return path_merged_zarr
