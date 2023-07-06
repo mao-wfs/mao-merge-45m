@@ -14,7 +14,7 @@ TEST_CSV = Path("data") / "weather_20201123T004000Z.csv"
 TEST_GBD = Path("data") / "accelerometer_20201123T004000Z.gbd"
 TEST_LOG = Path("data") / "antenna_20201123T004100Z.txt"
 TEST_VDIF = Path("data") / "correlator_20201123T004100Z.vdif"
-TEST_DIST = Path("data") / "distribution_20201123T004100Z.zarr"
+TEST_DIST = Path("data") / "distribution_20201123T004100Z.zarr.zip"
 
 
 # test functions
@@ -55,7 +55,7 @@ def test_merge() -> None:
         # merge (Zarrs -> Zarr)
         path_fmt = merge.merge(
             path_corr,
-            path_dir / "merged.zarr",
+            path_dir / "merged.zarr.zip",
             path_accelerometer_zarr=path_acc,
             path_weather_zarr=path_wea,
             path_antenna_zarr=path_ant,
