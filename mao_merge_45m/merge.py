@@ -53,13 +53,13 @@ def merge(
     if path_merged_zarr.exists() and not overwrite:
         raise FileExistsError(f"{path_merged_zarr} already exists.")
 
-    # create (overwrite) the merged Zarr
+    # open correlator Zarr and correct time offset (if any)
     correlator = xr.open_zarr(path_correlator_zarr)
     correlator.coords["time"] = correlator.coords["time"] + np.timedelta64(
         correlator_time_offset, "ms"
     )
-    correlator.to_zarr(path_merged_zarr, mode="w")
-    # append the other Zarrs to the merged Zarr
+
+    # append metadata Zarrs to the correlator Zarr
     for path in (
         path_accelerometer_zarr,
         path_weather_zarr,
@@ -69,13 +69,13 @@ def merge(
         if path is None:
             continue
 
-        ds = xr.Dataset(coords=xr.open_zarr(path).variables)
-        ds = ds.interp_like(correlator, interpolation)
+        ds = xr.open_zarr(path).interp_like(correlator, interpolation)
+        correlator.coords.update(ds)
 
-        if progress:
-            with ProgressBar():
-                ds.to_zarr(path_merged_zarr, mode="a")
-        else:
-            ds.to_zarr(path_merged_zarr, mode="a")
+    if progress:
+        with ProgressBar():
+            correlator.to_zarr(path_merged_zarr, mode="a")
+    else:
+        correlator.to_zarr(path_merged_zarr, mode="a")
 
     return path_merged_zarr
