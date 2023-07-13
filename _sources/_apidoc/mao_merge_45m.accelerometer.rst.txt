@@ -1,0 +1,7 @@
+mao\_merge\_45m.accelerometer module
+====================================
+
+.. automodule:: mao_merge_45m.accelerometer
+   :members:
+   :undoc-members:
+   :show-inheritance:

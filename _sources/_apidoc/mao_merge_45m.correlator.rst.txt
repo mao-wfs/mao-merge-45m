@@ -1,0 +1,7 @@
+mao\_merge\_45m.correlator module
+=================================
+
+.. automodule:: mao_merge_45m.correlator
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+mao\_merge\_45m.sam45 module
+============================
+
+.. automodule:: mao_merge_45m.sam45
+   :members:
+   :undoc-members:
+   :show-inheritance:

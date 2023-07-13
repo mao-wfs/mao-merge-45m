@@ -1,0 +1,7 @@
+mao\_merge\_45m.antenna\_50\_sps module
+=======================================
+
+.. automodule:: mao_merge_45m.antenna_50_sps
+   :members:
+   :undoc-members:
+   :show-inheritance:

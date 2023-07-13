@@ -1,0 +1,889 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>mao_merge_45m.antenna_50_sps module &#8212; Python  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mao_merge_45m.correlator module" href="mao_merge_45m.correlator.html" />
+    <link rel="prev" title="mao_merge_45m.antenna module" href="mao_merge_45m.antenna.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Python</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="mao_merge_45m.html">
+  Package guide
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/mao-wfs/mao-merge-45m/" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.accelerometer.html">
+   mao_merge_45m.accelerometer module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.accelerometer_csv.html">
+   mao_merge_45m.accelerometer_csv module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.antenna.html">
+   mao_merge_45m.antenna module
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   mao_merge_45m.antenna_50_sps module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.correlator.html">
+   mao_merge_45m.correlator module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.merge.html">
+   mao_merge_45m.merge module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.sam45.html">
+   mao_merge_45m.sam45 module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.weather.html">
+   mao_merge_45m.weather module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="module-mao_merge_45m.antenna_50_sps">
+<span id="mao-merge-45m-antenna-50-sps-module"></span><h1>mao_merge_45m.antenna_50_sps module<a class="headerlink" href="#module-mao_merge_45m.antenna_50_sps" title="Permalink to this headline">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Antenna</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">antenna_azimuth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.AntennaAzimuth" title="mao_merge_45m.antenna_50_sps.AntennaAzimuth"><span class="pre">AntennaAzimuth</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antenna_elevation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.AntennaElevation" title="mao_merge_45m.antenna_50_sps.AntennaElevation"><span class="pre">AntennaElevation</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collimator_azimuth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.CollimatorAzimuth" title="mao_merge_45m.antenna_50_sps.CollimatorAzimuth"><span class="pre">CollimatorAzimuth</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collimator_elevation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.CollimatorElevation" title="mao_merge_45m.antenna_50_sps.CollimatorElevation"><span class="pre">CollimatorElevation</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subref_X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefX" title="mao_merge_45m.antenna_50_sps.SubrefX"><span class="pre">SubrefX</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subref_Y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefY" title="mao_merge_45m.antenna_50_sps.SubrefY"><span class="pre">SubrefY</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subref_Z1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefZ1" title="mao_merge_45m.antenna_50_sps.SubrefZ1"><span class="pre">SubrefZ1</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subref_Z2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefZ2" title="mao_merge_45m.antenna_50_sps.SubrefZ2"><span class="pre">SubrefZ2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prog_antenna_azimuth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth" title="mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth"><span class="pre">ProgAntennaAzimuth</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prog_antenna_elevation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgAntennaElevation" title="mao_merge_45m.antenna_50_sps.ProgAntennaElevation"><span class="pre">ProgAntennaElevation</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prog_subref_X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefX" title="mao_merge_45m.antenna_50_sps.ProgSubrefX"><span class="pre">ProgSubrefX</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prog_subref_Y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefY" title="mao_merge_45m.antenna_50_sps.ProgSubrefY"><span class="pre">ProgSubrefY</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prog_subref_Z1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ1" title="mao_merge_45m.antenna_50_sps.ProgSubrefZ1"><span class="pre">ProgSubrefZ1</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prog_subref_Z2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ2" title="mao_merge_45m.antenna_50_sps.ProgSubrefZ2"><span class="pre">ProgSubrefZ2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#Antenna"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AsDataset</span></code></p>
+<p>Representation of antenna logs in xarray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>antenna_azimuth</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.AntennaAzimuth" title="mao_merge_45m.antenna_50_sps.AntennaAzimuth"><em>AntennaAzimuth</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>antenna_elevation</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.AntennaElevation" title="mao_merge_45m.antenna_50_sps.AntennaElevation"><em>AntennaElevation</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>collimator_azimuth</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.CollimatorAzimuth" title="mao_merge_45m.antenna_50_sps.CollimatorAzimuth"><em>CollimatorAzimuth</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>collimator_elevation</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.CollimatorElevation" title="mao_merge_45m.antenna_50_sps.CollimatorElevation"><em>CollimatorElevation</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>subref_X</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefX" title="mao_merge_45m.antenna_50_sps.SubrefX"><em>SubrefX</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>subref_Y</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefY" title="mao_merge_45m.antenna_50_sps.SubrefY"><em>SubrefY</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>subref_Z1</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefZ1" title="mao_merge_45m.antenna_50_sps.SubrefZ1"><em>SubrefZ1</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>subref_Z2</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefZ2" title="mao_merge_45m.antenna_50_sps.SubrefZ2"><em>SubrefZ2</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>prog_antenna_azimuth</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth" title="mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth"><em>ProgAntennaAzimuth</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>prog_antenna_elevation</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgAntennaElevation" title="mao_merge_45m.antenna_50_sps.ProgAntennaElevation"><em>ProgAntennaElevation</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>prog_subref_X</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefX" title="mao_merge_45m.antenna_50_sps.ProgSubrefX"><em>ProgSubrefX</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>prog_subref_Y</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefY" title="mao_merge_45m.antenna_50_sps.ProgSubrefY"><em>ProgSubrefY</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>prog_subref_Z1</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ1" title="mao_merge_45m.antenna_50_sps.ProgSubrefZ1"><em>ProgSubrefZ1</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>prog_subref_Z2</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ2" title="mao_merge_45m.antenna_50_sps.ProgSubrefZ2"><em>ProgSubrefZ2</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.antenna_azimuth">
+<span class="sig-name descname"><span class="pre">antenna_azimuth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.AntennaAzimuth" title="mao_merge_45m.antenna_50_sps.AntennaAzimuth"><span class="pre">mao_merge_45m.antenna_50_sps.AntennaAzimuth</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.antenna_azimuth" title="Permalink to this definition">#</a></dt>
+<dd><p>Azimuth of the antenna.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.antenna_elevation">
+<span class="sig-name descname"><span class="pre">antenna_elevation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.AntennaElevation" title="mao_merge_45m.antenna_50_sps.AntennaElevation"><span class="pre">mao_merge_45m.antenna_50_sps.AntennaElevation</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.antenna_elevation" title="Permalink to this definition">#</a></dt>
+<dd><p>Elevation of the antenna.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.collimator_azimuth">
+<span class="sig-name descname"><span class="pre">collimator_azimuth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.CollimatorAzimuth" title="mao_merge_45m.antenna_50_sps.CollimatorAzimuth"><span class="pre">mao_merge_45m.antenna_50_sps.CollimatorAzimuth</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.collimator_azimuth" title="Permalink to this definition">#</a></dt>
+<dd><p>Azimuth of the collimator.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.collimator_elevation">
+<span class="sig-name descname"><span class="pre">collimator_elevation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.CollimatorElevation" title="mao_merge_45m.antenna_50_sps.CollimatorElevation"><span class="pre">mao_merge_45m.antenna_50_sps.CollimatorElevation</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.collimator_elevation" title="Permalink to this definition">#</a></dt>
+<dd><p>Elevation of the collimator.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.prog_antenna_azimuth">
+<span class="sig-name descname"><span class="pre">prog_antenna_azimuth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth" title="mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth"><span class="pre">mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.prog_antenna_azimuth" title="Permalink to this definition">#</a></dt>
+<dd><p>Azimuth of the antenna (prog).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.prog_antenna_elevation">
+<span class="sig-name descname"><span class="pre">prog_antenna_elevation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgAntennaElevation" title="mao_merge_45m.antenna_50_sps.ProgAntennaElevation"><span class="pre">mao_merge_45m.antenna_50_sps.ProgAntennaElevation</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.prog_antenna_elevation" title="Permalink to this definition">#</a></dt>
+<dd><p>Elevation of the antenna (prog).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.prog_subref_X">
+<span class="sig-name descname"><span class="pre">prog_subref_X</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefX" title="mao_merge_45m.antenna_50_sps.ProgSubrefX"><span class="pre">mao_merge_45m.antenna_50_sps.ProgSubrefX</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.prog_subref_X" title="Permalink to this definition">#</a></dt>
+<dd><p>X position of a subref (prog).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.prog_subref_Y">
+<span class="sig-name descname"><span class="pre">prog_subref_Y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefY" title="mao_merge_45m.antenna_50_sps.ProgSubrefY"><span class="pre">mao_merge_45m.antenna_50_sps.ProgSubrefY</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.prog_subref_Y" title="Permalink to this definition">#</a></dt>
+<dd><p>Y position of a subref (prog).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.prog_subref_Z1">
+<span class="sig-name descname"><span class="pre">prog_subref_Z1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ1" title="mao_merge_45m.antenna_50_sps.ProgSubrefZ1"><span class="pre">mao_merge_45m.antenna_50_sps.ProgSubrefZ1</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.prog_subref_Z1" title="Permalink to this definition">#</a></dt>
+<dd><p>Z1 position of a subref (prog).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.prog_subref_Z2">
+<span class="sig-name descname"><span class="pre">prog_subref_Z2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ2" title="mao_merge_45m.antenna_50_sps.ProgSubrefZ2"><span class="pre">mao_merge_45m.antenna_50_sps.ProgSubrefZ2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.prog_subref_Z2" title="Permalink to this definition">#</a></dt>
+<dd><p>Z2 position of a subref (prog).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.subref_X">
+<span class="sig-name descname"><span class="pre">subref_X</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefX" title="mao_merge_45m.antenna_50_sps.SubrefX"><span class="pre">mao_merge_45m.antenna_50_sps.SubrefX</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.subref_X" title="Permalink to this definition">#</a></dt>
+<dd><p>X position of a subref.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.subref_Y">
+<span class="sig-name descname"><span class="pre">subref_Y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefY" title="mao_merge_45m.antenna_50_sps.SubrefY"><span class="pre">mao_merge_45m.antenna_50_sps.SubrefY</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.subref_Y" title="Permalink to this definition">#</a></dt>
+<dd><p>Y position of a subref.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.subref_Z1">
+<span class="sig-name descname"><span class="pre">subref_Z1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefZ1" title="mao_merge_45m.antenna_50_sps.SubrefZ1"><span class="pre">mao_merge_45m.antenna_50_sps.SubrefZ1</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.subref_Z1" title="Permalink to this definition">#</a></dt>
+<dd><p>Z1 position of a subref.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.Antenna.subref_Z2">
+<span class="sig-name descname"><span class="pre">subref_Z2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.antenna_50_sps.SubrefZ2" title="mao_merge_45m.antenna_50_sps.SubrefZ2"><span class="pre">mao_merge_45m.antenna_50_sps.SubrefZ2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.Antenna.subref_Z2" title="Permalink to this definition">#</a></dt>
+<dd><p>Z2 position of a subref.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaAzimuth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AntennaAzimuth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Antenna</span> <span class="pre">azimuth',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degree'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#AntennaAzimuth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaAzimuth" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaAzimuth.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaAzimuth.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaAzimuth.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Antenna</span> <span class="pre">azimuth'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaAzimuth.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaAzimuth.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degree'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaAzimuth.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaElevation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AntennaElevation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Antenna</span> <span class="pre">elevation',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degree'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#AntennaElevation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaElevation" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaElevation.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaElevation.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaElevation.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Antenna</span> <span class="pre">elevation'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaElevation.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.AntennaElevation.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degree'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.AntennaElevation.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorAzimuth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CollimatorAzimuth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Collimator</span> <span class="pre">azimuth',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degree'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#CollimatorAzimuth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorAzimuth" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorAzimuth.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorAzimuth.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorAzimuth.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Collimator</span> <span class="pre">azimuth'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorAzimuth.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorAzimuth.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degree'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorAzimuth.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorElevation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CollimatorElevation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Collimator</span> <span class="pre">elevation',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degree'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#CollimatorElevation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorElevation" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorElevation.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorElevation.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorElevation.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Collimator</span> <span class="pre">elevation'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorElevation.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.CollimatorElevation.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degree'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.CollimatorElevation.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgAntennaAzimuth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Antenna</span> <span class="pre">azimuth</span> <span class="pre">(prog)',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degree'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#ProgAntennaAzimuth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Antenna</span> <span class="pre">azimuth</span> <span class="pre">(prog)'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degree'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaAzimuth.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaElevation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgAntennaElevation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Antenna</span> <span class="pre">elevation</span> <span class="pre">(prog)',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degree'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#ProgAntennaElevation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaElevation" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaElevation.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaElevation.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaElevation.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Antenna</span> <span class="pre">elevation</span> <span class="pre">(prog)'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaElevation.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgAntennaElevation.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degree'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgAntennaElevation.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefX">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgSubrefX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">X</span> <span class="pre">(prog)',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#ProgSubrefX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefX" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefX.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefX.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefX.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">X</span> <span class="pre">(prog)'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefX.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefX.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefX.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefY">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgSubrefY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">Y</span> <span class="pre">(prog)',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#ProgSubrefY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefY" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefY.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefY.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefY.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">Y</span> <span class="pre">(prog)'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefY.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefY.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefY.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgSubrefZ1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">Z1</span> <span class="pre">(prog)',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#ProgSubrefZ1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ1" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ1.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ1.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ1.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">Z1</span> <span class="pre">(prog)'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ1.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ1.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ1.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ProgSubrefZ2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">Z2</span> <span class="pre">(prog)',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#ProgSubrefZ2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ2" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ2.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ2.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ2.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">Z2</span> <span class="pre">(prog)'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ2.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.ProgSubrefZ2.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.ProgSubrefZ2.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefX">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SubrefX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">X',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#SubrefX"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefX" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefX.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefX.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefX.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">X'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefX.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefX.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefX.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefY">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SubrefY</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">Y',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#SubrefY"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefY" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefY.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefY.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefY.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">Y'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefY.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefY.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefY.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SubrefZ1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">Z1',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#SubrefZ1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ1" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ1.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ1.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ1.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">Z1'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ1.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ1.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ1.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SubrefZ2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;]</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Subref</span> <span class="pre">Z2',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#SubrefZ2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ2" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ2.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ2.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ2.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Subref</span> <span class="pre">Z2'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ2.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.SubrefZ2.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mm'</span></em><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.SubrefZ2.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_zarr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length_per_chunk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.convert" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert a raw 50 sps log file(s) to a formatted Zarr file.</p>
+<p>This function will make a one-dimensional antenna log outputs
+with time metadata derived from the raw 50 sps log file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_log</strong> (<em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>Path</em><em>]</em><em>, </em><em>Path</em><em>]</em>) – Path(s) of the raw 50 sps log file(s).</p></li>
+<li><p><strong>path_zarr</strong> (<em>Optional</em><em>[</em><em>Path</em><em>]</em>) – Path of the formatted Zarr file (optional).</p></li>
+<li><p><strong>length_per_chunk</strong> (<em>int</em>) – Length per chunk in the Zarr file.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – Whether to overwrite the formatted Zarr file if exists.</p></li>
+<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path of the formatted Zarr file.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>FileExistsError</strong> – Raised if the formatted Zarr file exists
+    and overwriting is not allowed (default).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Path</em></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The timezone of the Zarr file is not JST but UTC.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.get_df_prog">
+<span class="sig-name descname"><span class="pre">get_df_prog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">9</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#get_df_prog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.get_df_prog" title="Permalink to this definition">#</a></dt>
+<dd><p>Helper function to read programmed values from a log.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_log</strong> (<em>Path</em>) – </p></li>
+<li><p><strong>index</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mao_merge_45m.antenna_50_sps.get_df_real">
+<span class="sig-name descname"><span class="pre">get_df_real</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/mao_merge_45m/antenna_50_sps.html#get_df_real"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.antenna_50_sps.get_df_real" title="Permalink to this definition">#</a></dt>
+<dd><p>Helper function to read measured values from a log.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_log</strong> (<em>Path</em>) – </p></li>
+<li><p><strong>index</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="mao_merge_45m.antenna.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">mao_merge_45m.antenna module</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="mao_merge_45m.correlator.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">mao_merge_45m.correlator module</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021-2022 Akio Taniguchi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

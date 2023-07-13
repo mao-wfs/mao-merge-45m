@@ -1,0 +1,7 @@
+mao\_merge\_45m.merge module
+============================
+
+.. automodule:: mao_merge_45m.merge
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+mao\_merge\_45m.weather module
+==============================
+
+.. automodule:: mao_merge_45m.weather
+   :members:
+   :undoc-members:
+   :show-inheritance:

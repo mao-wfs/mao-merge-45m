@@ -1,0 +1,25 @@
+mao\_merge\_45m package
+=======================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   mao_merge_45m.accelerometer
+   mao_merge_45m.accelerometer_csv
+   mao_merge_45m.antenna
+   mao_merge_45m.antenna_50_sps
+   mao_merge_45m.correlator
+   mao_merge_45m.merge
+   mao_merge_45m.sam45
+   mao_merge_45m.weather
+
+Module contents
+---------------
+
+.. automodule:: mao_merge_45m
+   :members:
+   :undoc-members:
+   :show-inheritance:

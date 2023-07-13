@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mao_merge_45m.accelerometer_csv &#8212; Python  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../index.html">
+<p class="title">Python</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../_apidoc/mao_merge_45m.html">
+  Package guide
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/mao-wfs/mao-merge-45m/" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for mao_merge_45m.accelerometer_csv</h1><div class="highlight"><pre>
+<span></span><span class="c1"># standard library</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+
+
+<span class="c1"># dependencies</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">dask.diagnostics</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+<span class="kn">from</span> <span class="nn">xarray_dataclasses</span> <span class="kn">import</span> <span class="n">AsDataset</span><span class="p">,</span> <span class="n">Attr</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Dataof</span>
+
+
+<span class="c1"># constants</span>
+<span class="n">JST_HOURS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">)</span>
+<span class="n">LOG_DATECOLS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">LOG_ENCODING</span> <span class="o">=</span> <span class="s2">&quot;shift-jis&quot;</span>
+<span class="n">LOG_TIMEFMT</span> <span class="o">=</span> <span class="s2">&quot;%Y/%m/</span><span class="si">%d</span><span class="s2"> %H:%M:%S </span><span class="si">%f</span><span class="s2">&quot;</span>
+<span class="n">LOG_UNITSSTR</span> <span class="o">=</span> <span class="s2">&quot;NO.,Date,Time,us,mV,mV,mV,mV,mV,mV,ﾟC,ﾟC&quot;</span>
+<span class="n">LOG_UNITSROW</span> <span class="o">=</span> <span class="mi">27</span>
+
+
+<span class="c1"># type hints</span>
+<span class="n">Time</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="CH1"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH1">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH1</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH1&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mV&quot;</span></div>
+
+
+<div class="viewcode-block" id="CH2"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH2">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH2</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH2&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mV&quot;</span></div>
+
+
+<div class="viewcode-block" id="CH3"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH3">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH3</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH3&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mV&quot;</span></div>
+
+
+<div class="viewcode-block" id="CH4"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH4">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH4</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH4&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mV&quot;</span></div>
+
+
+<div class="viewcode-block" id="CH5"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH5">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH5</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH5&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mV&quot;</span></div>
+
+
+<div class="viewcode-block" id="CH6"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH6">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH6</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH6&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mV&quot;</span></div>
+
+
+<div class="viewcode-block" id="CH7"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH7">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH7</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH7&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;degC&quot;</span></div>
+
+
+<div class="viewcode-block" id="CH8"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.CH8">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">CH8</span><span class="p">:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">[</span><span class="n">Time</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">long_name</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Accelerometer CH8&quot;</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Attr</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;degC&quot;</span></div>
+
+
+<div class="viewcode-block" id="Accelerometer"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.Accelerometer">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Accelerometer</span><span class="p">(</span><span class="n">AsDataset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Specification of accelerometer logs in xarray.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch1</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH1</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH1.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch2</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH2</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH2.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch3</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH3</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH3.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch4</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH4</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH4.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch5</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH5</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH5.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch6</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH6</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH6.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch7</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH7</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH7.&quot;&quot;&quot;</span>
+
+    <span class="n">accelerometer_ch8</span><span class="p">:</span> <span class="n">Dataof</span><span class="p">[</span><span class="n">CH8</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;Data of CH8.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span>
+    <span class="n">path_log</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">Path</span><span class="p">],</span>
+    <span class="n">path_zarr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">length_per_chunk</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000000</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert raw accelerometer log(s) to a formatted Zarr file.</span>
+
+<span class="sd">    This function will make a one-dimensional accelerometer outputs</span>
+<span class="sd">    with time metadata derived from the raw CSV file(s).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path_log: Path(s) of the raw accelerometer CSV file(s).</span>
+<span class="sd">        path_zarr: Path of the formatted Zarr file (optional).</span>
+<span class="sd">        length_per_chunk: Length per chunk in the Zarr file.</span>
+<span class="sd">        overwrite: Whether to overwrite the formatted Zarr file if exists.</span>
+<span class="sd">        progress: Whether to show a progress bar.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Path of the formatted Zarr file.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileExistsError: Raised if the formatted Zarr file exists</span>
+<span class="sd">            and overwriting is not allowed (default).</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        The timezone of the Zarr file is not JST but UTC.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path_log</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+        <span class="n">path_log</span> <span class="o">=</span> <span class="p">[</span><span class="n">path_log</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">path_zarr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path_zarr</span> <span class="o">=</span> <span class="n">path_log</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.zarr&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">path_zarr</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_zarr</span><span class="si">}</span><span class="s2"> already exists.&quot;</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">path_log</span><span class="p">:</span>
+        <span class="n">assert_units</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)])</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
+
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">Accelerometer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+        <span class="n">accelerometer_ch1</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+        <span class="n">accelerometer_ch2</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+        <span class="n">accelerometer_ch3</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+        <span class="n">accelerometer_ch4</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+        <span class="n">accelerometer_ch5</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+        <span class="n">accelerometer_ch6</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+        <span class="n">accelerometer_ch7</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+        <span class="n">accelerometer_ch8</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">assign_coords</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">time</span> <span class="o">-</span> <span class="n">JST_HOURS</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="n">length_per_chunk</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="n">path_zarr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ds</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="n">path_zarr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">path_zarr</span></div>
+
+
+<div class="viewcode-block" id="assert_units"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.assert_units">[docs]</a><span class="k">def</span> <span class="nf">assert_units</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Check if units of an accelerometer log is valid.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">LOG_ENCODING</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">lines</span><span class="p">[</span><span class="n">LOG_UNITSROW</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="n">LOG_UNITSSTR</span></div>
+
+
+<div class="viewcode-block" id="read_csv"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.accelerometer_csv.html#mao_merge_45m.accelerometer_csv.read_csv">[docs]</a><span class="k">def</span> <span class="nf">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Custom read_csv function dedicated to accelerometer logs.&quot;&quot;&quot;</span>
+    <span class="n">date_parser</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">LOG_TIMEFMT</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+            <span class="n">path</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">skiprows</span><span class="o">=</span><span class="n">LOG_UNITSROW</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="n">LOG_DATECOLS</span><span class="p">],</span>
+            <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">LOG_DATECOLS</span><span class="p">)),</span>
+            <span class="n">usecols</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">LOG_UNITSSTR</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))),</span>
+            <span class="n">date_parser</span><span class="o">=</span><span class="n">date_parser</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="n">LOG_ENCODING</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">last</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;10 ms&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">interpolate</span><span class="p">()</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021-2022 Akio Taniguchi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

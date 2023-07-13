@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>mao_merge_45m.accelerometer_csv module &#8212; Python  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mao_merge_45m.antenna module" href="mao_merge_45m.antenna.html" />
+    <link rel="prev" title="mao_merge_45m.accelerometer module" href="mao_merge_45m.accelerometer.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">Python</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="mao_merge_45m.html">
+  Package guide
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/mao-wfs/mao-merge-45m/" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.accelerometer.html">
+   mao_merge_45m.accelerometer module
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   mao_merge_45m.accelerometer_csv module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.antenna.html">
+   mao_merge_45m.antenna module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.antenna_50_sps.html">
+   mao_merge_45m.antenna_50_sps module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.correlator.html">
+   mao_merge_45m.correlator module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.merge.html">
+   mao_merge_45m.merge module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.sam45.html">
+   mao_merge_45m.sam45 module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mao_merge_45m.weather.html">
+   mao_merge_45m.weather module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="module-mao_merge_45m.accelerometer_csv">
+<span id="mao-merge-45m-accelerometer-csv-module"></span><h1>mao_merge_45m.accelerometer_csv module<a class="headerlink" href="#module-mao_merge_45m.accelerometer_csv" title="Permalink to this headline">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Accelerometer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accelerometer_ch1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH1" title="mao_merge_45m.accelerometer_csv.CH1"><span class="pre">CH1</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerometer_ch2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH2" title="mao_merge_45m.accelerometer_csv.CH2"><span class="pre">CH2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerometer_ch3</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH3" title="mao_merge_45m.accelerometer_csv.CH3"><span class="pre">CH3</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerometer_ch4</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH4" title="mao_merge_45m.accelerometer_csv.CH4"><span class="pre">CH4</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerometer_ch5</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH5" title="mao_merge_45m.accelerometer_csv.CH5"><span class="pre">CH5</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerometer_ch6</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH6" title="mao_merge_45m.accelerometer_csv.CH6"><span class="pre">CH6</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerometer_ch7</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH7" title="mao_merge_45m.accelerometer_csv.CH7"><span class="pre">CH7</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accelerometer_ch8</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH8" title="mao_merge_45m.accelerometer_csv.CH8"><span class="pre">CH8</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#Accelerometer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AsDataset</span></code></p>
+<p>Specification of accelerometer logs in xarray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>accelerometer_ch1</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH1" title="mao_merge_45m.accelerometer_csv.CH1"><em>CH1</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>accelerometer_ch2</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH2" title="mao_merge_45m.accelerometer_csv.CH2"><em>CH2</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>accelerometer_ch3</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH3" title="mao_merge_45m.accelerometer_csv.CH3"><em>CH3</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>accelerometer_ch4</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH4" title="mao_merge_45m.accelerometer_csv.CH4"><em>CH4</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>accelerometer_ch5</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH5" title="mao_merge_45m.accelerometer_csv.CH5"><em>CH5</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>accelerometer_ch6</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH6" title="mao_merge_45m.accelerometer_csv.CH6"><em>CH6</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>accelerometer_ch7</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH7" title="mao_merge_45m.accelerometer_csv.CH7"><em>CH7</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>accelerometer_ch8</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH8" title="mao_merge_45m.accelerometer_csv.CH8"><em>CH8</em></a><em>, </em><em>Any</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch1">
+<span class="sig-name descname"><span class="pre">accelerometer_ch1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH1" title="mao_merge_45m.accelerometer_csv.CH1"><span class="pre">mao_merge_45m.accelerometer_csv.CH1</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch1" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch2">
+<span class="sig-name descname"><span class="pre">accelerometer_ch2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH2" title="mao_merge_45m.accelerometer_csv.CH2"><span class="pre">mao_merge_45m.accelerometer_csv.CH2</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch2" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH2.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch3">
+<span class="sig-name descname"><span class="pre">accelerometer_ch3</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH3" title="mao_merge_45m.accelerometer_csv.CH3"><span class="pre">mao_merge_45m.accelerometer_csv.CH3</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch3" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH3.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch4">
+<span class="sig-name descname"><span class="pre">accelerometer_ch4</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH4" title="mao_merge_45m.accelerometer_csv.CH4"><span class="pre">mao_merge_45m.accelerometer_csv.CH4</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch4" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH4.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch5">
+<span class="sig-name descname"><span class="pre">accelerometer_ch5</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH5" title="mao_merge_45m.accelerometer_csv.CH5"><span class="pre">mao_merge_45m.accelerometer_csv.CH5</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch5" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH5.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch6">
+<span class="sig-name descname"><span class="pre">accelerometer_ch6</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH6" title="mao_merge_45m.accelerometer_csv.CH6"><span class="pre">mao_merge_45m.accelerometer_csv.CH6</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch6" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH6.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch7">
+<span class="sig-name descname"><span class="pre">accelerometer_ch7</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH7" title="mao_merge_45m.accelerometer_csv.CH7"><span class="pre">mao_merge_45m.accelerometer_csv.CH7</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch7" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH7.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch8">
+<span class="sig-name descname"><span class="pre">accelerometer_ch8</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mao_merge_45m.accelerometer_csv.CH8" title="mao_merge_45m.accelerometer_csv.CH8"><span class="pre">mao_merge_45m.accelerometer_csv.CH8</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.Accelerometer.accelerometer_ch8" title="Permalink to this definition">#</a></dt>
+<dd><p>Data of CH8.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH1',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mV'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH1" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH1.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH1.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH1.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH1'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH1.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH1.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mV'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH1.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH2',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mV'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH2" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH2.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH2.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH2.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH2'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH2.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH2.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mV'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH2.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH3">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH3',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mV'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH3" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH3.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH3.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH3.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH3'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH3.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH3.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mV'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH3.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH4">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH4',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mV'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH4" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH4.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH4.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH4.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH4'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH4.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH4.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mV'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH4.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH5">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH5',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mV'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH5" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH5.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH5.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH5.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH5'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH5.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH5.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mV'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH5.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH6">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH6',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'mV'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH6" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH6.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH6.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH6.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH6'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH6.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH6.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mV'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH6.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH7">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH7</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH7',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degC'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH7" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH7.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH7.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH7.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH7'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH7.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH7.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degC'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH7.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH8">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CH8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">Annotated[Union[xarray_dataclasses.typing.Labeled[Literal['time']],</span> <span class="pre">Collection[float],</span> <span class="pre">float],</span> <span class="pre">&lt;Role.DATA:</span> <span class="pre">'data'&gt;],</span> <span class="pre">long_name:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'Accelerometer</span> <span class="pre">CH8',</span> <span class="pre">units:</span> <span class="pre">typing.Annotated[str,</span> <span class="pre">&lt;Role.ATTR:</span> <span class="pre">'attr'&gt;]</span> <span class="pre">=</span> <span class="pre">'degC'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#CH8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH8" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>Labeled</em><em>[</em><em>Literal</em><em>[</em><em>'time'</em><em>]</em><em>]</em><em>, </em><em>Collection</em><em>[</em><em>float</em><em>]</em><em>, </em><em>float</em><em>]</em>) – </p></li>
+<li><p><strong>long_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>units</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH8.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">xarray_dataclasses.typing.Labeled</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'time'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Collection</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH8.data" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH8.long_name">
+<span class="sig-name descname"><span class="pre">long_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Accelerometer</span> <span class="pre">CH8'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH8.long_name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.CH8.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'degC'</span></em><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.CH8.units" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.assert_units">
+<span class="sig-name descname"><span class="pre">assert_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#assert_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.assert_units" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if units of an accelerometer log is valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>Path</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_zarr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length_per_chunk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.convert" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert raw accelerometer log(s) to a formatted Zarr file.</p>
+<p>This function will make a one-dimensional accelerometer outputs
+with time metadata derived from the raw CSV file(s).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_log</strong> (<em>Union</em><em>[</em><em>Sequence</em><em>[</em><em>Path</em><em>]</em><em>, </em><em>Path</em><em>]</em>) – Path(s) of the raw accelerometer CSV file(s).</p></li>
+<li><p><strong>path_zarr</strong> (<em>Optional</em><em>[</em><em>Path</em><em>]</em>) – Path of the formatted Zarr file (optional).</p></li>
+<li><p><strong>length_per_chunk</strong> (<em>int</em>) – Length per chunk in the Zarr file.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – Whether to overwrite the formatted Zarr file if exists.</p></li>
+<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Path of the formatted Zarr file.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>FileExistsError</strong> – Raised if the formatted Zarr file exists
+    and overwriting is not allowed (default).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Path</em></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The timezone of the Zarr file is not JST but UTC.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mao_merge_45m.accelerometer_csv.read_csv">
+<span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/mao_merge_45m/accelerometer_csv.html#read_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mao_merge_45m.accelerometer_csv.read_csv" title="Permalink to this definition">#</a></dt>
+<dd><p>Custom read_csv function dedicated to accelerometer logs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>Path</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="mao_merge_45m.accelerometer.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">mao_merge_45m.accelerometer module</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="mao_merge_45m.antenna.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">mao_merge_45m.antenna module</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021-2022 Akio Taniguchi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

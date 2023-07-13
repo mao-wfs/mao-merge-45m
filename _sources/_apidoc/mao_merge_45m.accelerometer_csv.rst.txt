@@ -1,0 +1,7 @@
+mao\_merge\_45m.accelerometer\_csv module
+=========================================
+
+.. automodule:: mao_merge_45m.accelerometer_csv
+   :members:
+   :undoc-members:
+   :show-inheritance:

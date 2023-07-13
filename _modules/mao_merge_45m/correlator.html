@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mao_merge_45m.correlator &#8212; Python  documentation</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../index.html">
+<p class="title">Python</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../index.html">
+  Home
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../_apidoc/mao_merge_45m.html">
+  Package guide
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/mao-wfs/mao-merge-45m/" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for mao_merge_45m.correlator</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;convert&quot;</span><span class="p">,</span> <span class="s2">&quot;to_zarr&quot;</span><span class="p">]</span>
+
+
+<span class="c1"># standard library</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">getLogger</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">Struct</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">BinaryIO</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+
+<span class="c1"># third-party packages</span>
+<span class="kn">import</span> <span class="nn">zarr</span>
+<span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span> <span class="nn">dask.diagnostics</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+
+
+<span class="c1"># module-level logger</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="c1"># constants</span>
+<span class="n">DIMS</span> <span class="o">=</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;freq&quot;</span>
+<span class="n">UINT</span> <span class="o">=</span> <span class="s2">&quot;I&quot;</span>
+<span class="n">SHORT</span> <span class="o">=</span> <span class="s2">&quot;h&quot;</span>
+<span class="n">LITTLE_ENDIAN</span> <span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span>
+<span class="n">N_ROWS_VDIF_HEAD</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">N_ROWS_CORR_HEAD</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">N_ROWS_CORR_DATA</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="n">N_BYTES_PER_UNIT</span> <span class="o">=</span> <span class="mi">1312</span>
+<span class="n">N_UNITS_PER_SCAN</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">N_UNITS_PER_SECOND</span> <span class="o">=</span> <span class="mi">6400</span>
+<span class="n">N_SCANS_PER_SECOND</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">N_SCANS_PER_MINUTE</span> <span class="o">=</span> <span class="mi">6000</span>
+<span class="n">N_CHANS_FOR_FORMAT</span> <span class="o">=</span> <span class="mi">8192</span>
+<span class="n">LOWER_FREQ_MHZ</span> <span class="o">=</span> <span class="mi">16384</span>
+<span class="n">SLICE_MONTH</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">SLICE_SECOND</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">REF_YEAR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s2">&quot;2000&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+<span class="n">UNIT_MONTH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">)</span>
+<span class="n">UNIT_SECOND</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">)</span>
+<span class="n">UNIT_MILLISECOND</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">timedelta64</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;ms&quot;</span><span class="p">)</span>
+<span class="n">IMAG_UNIT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+<span class="n">TIME_NAME</span> <span class="o">=</span> <span class="s2">&quot;Measured time&quot;</span>
+<span class="n">FREQ_NAME</span> <span class="o">=</span> <span class="s2">&quot;Measured frequency&quot;</span>
+<span class="n">FREQ_UNIT</span> <span class="o">=</span> <span class="s2">&quot;GHz&quot;</span>
+<span class="n">CORR_NAME</span> <span class="o">=</span> <span class="s2">&quot;Correlator output&quot;</span>
+<span class="n">CORR_UNIT</span> <span class="o">=</span> <span class="s2">&quot;Arbitrary unit&quot;</span>
+
+
+<span class="c1"># main features</span>
+<div class="viewcode-block" id="convert"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.correlator.html#mao_merge_45m.correlator.convert">[docs]</a><span class="k">def</span> <span class="nf">convert</span><span class="p">(</span>
+    <span class="n">path_raw_zarr</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">path_fmt_zarr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">bin_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert a raw Zarr file to a formatted Zarr file.</span>
+
+<span class="sd">    This function will make a two-dimensional correlator output</span>
+<span class="sd">    with time and freq metadata derived from the raw Zarr file.</span>
+<span class="sd">    It will also average the output in frequency to reduce the size.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path_raw_vdif: Path of the raw VDIF file.</span>
+<span class="sd">        path_fmt_zarr: Path of the formatted Zarr file (optional).</span>
+<span class="sd">        bin_width: Bin width for averaging the output in frequency.</span>
+<span class="sd">        overwrite: Whether to overwrite the formatted Zarr file if exists.</span>
+<span class="sd">        progress: Whether to show a progress bar.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Path of the formatted Zarr file.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileExistsError: Raised if the formatted Zarr file exists</span>
+<span class="sd">            and overwriting is not allowed (default).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check the existence of the Zarr file</span>
+    <span class="k">if</span> <span class="n">path_fmt_zarr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path_fmt_zarr</span> <span class="o">=</span> <span class="n">path_raw_zarr</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.dist.zarr&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">path_fmt_zarr</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_fmt_zarr</span><span class="si">}</span><span class="s2"> already exists.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># open the Zarr file and reshape arrays</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path_raw_zarr</span><span class="p">))</span>
+    <span class="n">vdif_head</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">from_zarr</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">vdif_head</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="n">corr_data</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">from_zarr</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">corr_data</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+    <span class="n">vdif_head</span> <span class="o">=</span> <span class="n">vdif_head</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">vdif_head</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">N_UNITS_PER_SCAN</span><span class="p">,</span>
+            <span class="n">vdif_head</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">N_UNITS_PER_SCAN</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">corr_data</span> <span class="o">=</span> <span class="n">corr_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">corr_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">N_UNITS_PER_SCAN</span><span class="p">,</span>
+            <span class="n">corr_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">N_UNITS_PER_SCAN</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># make complex correlator array</span>
+    <span class="n">correlator</span> <span class="o">=</span> <span class="n">corr_data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">corr_data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">IMAG_UNIT</span>
+
+    <span class="c1"># use only first 8192 frequency channels</span>
+    <span class="n">correlator</span> <span class="o">=</span> <span class="n">correlator</span><span class="p">[:,</span> <span class="p">:</span><span class="n">N_CHANS_FOR_FORMAT</span><span class="p">]</span>
+
+    <span class="c1"># make time and freq arrays</span>
+    <span class="n">scan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">correlator</span><span class="p">))</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="n">slice_binary</span><span class="p">(</span><span class="n">vdif_head</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">SLICE_MONTH</span><span class="p">)</span> <span class="o">*</span> <span class="n">UNIT_MONTH</span>
+    <span class="n">second</span> <span class="o">=</span> <span class="n">slice_binary</span><span class="p">(</span><span class="n">vdif_head</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">SLICE_SECOND</span><span class="p">)</span> <span class="o">*</span> <span class="n">UNIT_SECOND</span>
+    <span class="n">millisecond</span> <span class="o">=</span> <span class="p">(</span><span class="n">scan</span> <span class="o">%</span> <span class="n">N_SCANS_PER_SECOND</span><span class="p">)</span> <span class="o">*</span> <span class="n">UNIT_MILLISECOND</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="n">REF_YEAR</span> <span class="o">+</span> <span class="n">month</span> <span class="o">+</span> <span class="n">second</span> <span class="o">+</span> <span class="n">millisecond</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+    <span class="n">freq</span> <span class="o">=</span> <span class="mf">1e-3</span> <span class="o">*</span> <span class="p">(</span><span class="n">LOWER_FREQ_MHZ</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N_CHANS_FOR_FORMAT</span><span class="p">))</span>
+
+    <span class="c1"># bin channels</span>
+    <span class="n">correlator</span> <span class="o">=</span> <span class="n">correlator</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">correlator</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">correlator</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">bin_width</span><span class="p">,</span>
+            <span class="n">bin_width</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">freq</span> <span class="o">=</span> <span class="n">freq</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">freq</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">bin_width</span><span class="p">,</span>
+            <span class="n">bin_width</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># write arrays to the Zarr file</span>
+    <span class="n">correlator</span> <span class="o">=</span> <span class="n">correlator</span><span class="o">.</span><span class="n">rechunk</span><span class="p">((</span><span class="n">N_SCANS_PER_MINUTE</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+        <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">time</span><span class="o">=</span><span class="p">(</span><span class="n">DIMS</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span><span class="p">),</span>
+            <span class="n">freq</span><span class="o">=</span><span class="p">(</span><span class="n">DIMS</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">freq</span><span class="p">),</span>
+            <span class="n">correlator</span><span class="o">=</span><span class="p">(</span><span class="n">DIMS</span><span class="p">,</span> <span class="n">correlator</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="n">long_name</span><span class="o">=</span><span class="n">TIME_NAME</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">freq</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="n">long_name</span><span class="o">=</span><span class="n">FREQ_NAME</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="n">FREQ_UNIT</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ds</span><span class="o">.</span><span class="n">correlator</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="n">long_name</span><span class="o">=</span><span class="n">CORR_NAME</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="n">CORR_UNIT</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+            <span class="n">ds</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="n">path_fmt_zarr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ds</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="n">path_fmt_zarr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">path_fmt_zarr</span></div>
+
+
+<div class="viewcode-block" id="to_zarr"><a class="viewcode-back" href="../../_apidoc/mao_merge_45m.correlator.html#mao_merge_45m.correlator.to_zarr">[docs]</a><span class="k">def</span> <span class="nf">to_zarr</span><span class="p">(</span>
+    <span class="n">path_vdif</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">path_zarr</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">seconds_per_chunk</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert a VDIF file to a Zarr file losslessly.</span>
+
+<span class="sd">    This function focuses on the conversion between formats.</span>
+<span class="sd">    The formatted Zarr file with metadata will be</span>
+<span class="sd">    made by another function (convert).</span>
+
+<span class="sd">    The output Zarr file from the function has three arrays.</span>
+
+<span class="sd">    - vdif_head: 4-byte data (uint32) * 8.</span>
+<span class="sd">    - corr_head: 4-byte data (uint32) * 64.</span>
+<span class="sd">    - corr_data: 2-byte data (int16) * 512 (256 re/im values).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path_vdif: Path of the VDIF file.</span>
+<span class="sd">        path_zarr: Path of the Zarr file (optional).</span>
+<span class="sd">        seconds_per_chunk: Time length per chunk in the Zarr file.</span>
+<span class="sd">        overwrite: Whether to overwrite the Zarr file if exists.</span>
+<span class="sd">        progress: Whether to show a progress bar.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Path of the Zarr file.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: Raised if the VDIF file is truncated.</span>
+<span class="sd">        FileExistsError: Raised if the Zarr file exists</span>
+<span class="sd">            and overwriting is not allowed (default).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check the existence of the Zarr file</span>
+    <span class="k">if</span> <span class="n">path_zarr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path_zarr</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path_vdif</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.zarr&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">path_zarr</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_zarr</span><span class="si">}</span><span class="s2"> already exists.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># check if the VDIF file is truncated.</span>
+    <span class="n">n_units</span><span class="p">,</span> <span class="n">mod</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">path_vdif</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_size</span><span class="p">,</span> <span class="n">N_BYTES_PER_UNIT</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mod</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_vdif</span><span class="si">}</span><span class="s2"> may be truncated.&quot;</span><span class="p">)</span>
+
+    <span class="n">n_units_per_chunk</span> <span class="o">=</span> <span class="n">N_UNITS_PER_SECOND</span> <span class="o">*</span> <span class="n">seconds_per_chunk</span>
+    <span class="n">n_chunks</span><span class="p">,</span> <span class="n">mod</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span> <span class="n">n_units_per_chunk</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mod</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Chunk length could not divide total time.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># prepare an empty zarr file</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path_zarr</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;vdif_head&quot;</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span> <span class="n">N_ROWS_VDIF_HEAD</span><span class="p">),</span>
+        <span class="n">chunks</span><span class="o">=</span><span class="p">(</span><span class="n">n_units_per_chunk</span><span class="p">,</span> <span class="n">N_ROWS_VDIF_HEAD</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">UINT</span><span class="p">),</span>  <span class="c1"># type: ignore</span>
+    <span class="p">)</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;corr_head&quot;</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span> <span class="n">N_ROWS_CORR_HEAD</span><span class="p">),</span>
+        <span class="n">chunks</span><span class="o">=</span><span class="p">(</span><span class="n">n_units_per_chunk</span><span class="p">,</span> <span class="n">N_ROWS_CORR_HEAD</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">UINT</span><span class="p">),</span>  <span class="c1"># type: ignore</span>
+    <span class="p">)</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;corr_data&quot;</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_units</span><span class="p">,</span> <span class="n">N_ROWS_CORR_DATA</span><span class="p">),</span>
+        <span class="n">chunks</span><span class="o">=</span><span class="p">(</span><span class="n">n_units_per_chunk</span><span class="p">,</span> <span class="n">N_ROWS_CORR_DATA</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">SHORT</span><span class="p">),</span>  <span class="c1"># type: ignore</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Read the VDIF file and write it to the Zarr file</span>
+    <span class="n">read_vdif_head</span> <span class="o">=</span> <span class="n">make_binary_reader</span><span class="p">(</span><span class="n">N_ROWS_VDIF_HEAD</span><span class="p">,</span> <span class="n">UINT</span><span class="p">)</span>
+    <span class="n">read_corr_head</span> <span class="o">=</span> <span class="n">make_binary_reader</span><span class="p">(</span><span class="n">N_ROWS_CORR_HEAD</span><span class="p">,</span> <span class="n">UINT</span><span class="p">)</span>
+    <span class="n">read_corr_data</span> <span class="o">=</span> <span class="n">make_binary_reader</span><span class="p">(</span><span class="n">N_ROWS_CORR_DATA</span><span class="p">,</span> <span class="n">SHORT</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_vdif</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_chunks</span><span class="p">),</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">progress</span><span class="p">):</span>
+            <span class="n">vdif_head</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">corr_head</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">corr_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_units_per_chunk</span><span class="p">):</span>
+                <span class="n">vdif_head</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_vdif_head</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+                <span class="n">corr_head</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_corr_head</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+                <span class="n">corr_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">read_corr_data</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_units_per_chunk</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_units_per_chunk</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">z</span><span class="o">.</span><span class="n">vdif_head</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">vdif_head</span>  <span class="c1"># type: ignore</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">corr_head</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">corr_head</span>  <span class="c1"># type: ignore</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">corr_data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">corr_data</span>  <span class="c1"># type: ignore</span>
+
+    <span class="k">return</span> <span class="n">path_zarr</span></div>
+
+
+<span class="k">def</span> <span class="nf">to_vdif</span><span class="p">(</span>
+    <span class="n">path_zarr</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">path_vdif</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert a Zarr file to a VDIF file losslessly.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path_zarr: Path of the Zarr file.</span>
+<span class="sd">        path_vdif: Path of the VDIF file (optional).</span>
+<span class="sd">        overwrite: Whether to overwrite the VDIF file if exists.</span>
+<span class="sd">        progress: Whether to show a progress bar.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Path of the VDIF file.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileExistsError: Raised if the VDIF file exists</span>
+<span class="sd">            and overwriting is not allowed (default).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check the existence of the Zarr file</span>
+    <span class="k">if</span> <span class="n">path_vdif</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path_vdif</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path_zarr</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.vdif&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">path_vdif</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path_vdif</span><span class="si">}</span><span class="s2"> already exists.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Read the Zarr file and write it to the VDIF file</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path_zarr</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">vdif_head</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">vdif_head</span>  <span class="c1"># type: ignore</span>
+    <span class="n">corr_head</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">corr_head</span>  <span class="c1"># type: ignore</span>
+    <span class="n">corr_data</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">corr_data</span>  <span class="c1"># type: ignore</span>
+
+    <span class="n">arrays</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span>
+        <span class="nb">zip</span><span class="p">(</span><span class="n">vdif_head</span><span class="p">,</span> <span class="n">corr_head</span><span class="p">,</span> <span class="n">corr_data</span><span class="p">),</span>
+        <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">vdif_head</span><span class="p">),</span>
+        <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">progress</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">path_vdif</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">units</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">tobytes</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">path_vdif</span>
+
+
+<span class="c1"># helper features</span>
+<span class="k">def</span> <span class="nf">make_binary_reader</span><span class="p">(</span>
+    <span class="n">n_repeat</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">BinaryIO</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Make a binary reader function.&quot;&quot;&quot;</span>
+    <span class="n">struct</span> <span class="o">=</span> <span class="n">Struct</span><span class="p">(</span><span class="n">LITTLE_ENDIAN</span> <span class="o">+</span> <span class="n">dtype</span> <span class="o">*</span> <span class="n">n_repeat</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reader</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">BinaryIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">reader</span>
+
+
+<span class="k">def</span> <span class="nf">slice_binary</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">slice_</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Slice an integer with given bit range.&quot;&quot;&quot;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">slice_</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">stop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">slice_</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="n">start</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">val</span> <span class="o">&gt;&gt;</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">length</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021-2022 Akio Taniguchi.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
