@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mao-merge-45m"
-version = "0.2.0"
-description = "Merge MAO datasets observed with NRO 45m telescope into a single Zarr file"
+version = "0.2.1"
+description = "Merge MAO datasets observed with the Nobeyama 45m telescope"
 authors = ["Akio Taniguchi <taniguchi@a.phys.nagoya-u.ac.jp>"]
 license = "MIT"
 

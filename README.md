@@ -1,5 +1,5 @@
 # mao-merge-45m
-Merge MAO datasets observed with NRO 45m telescope into a single Zarr file
+Merge MAO datasets observed with the Nobeyama 45m telescope
 
 ## Installation
 
