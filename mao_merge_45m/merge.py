@@ -2,15 +2,17 @@ __all__ = ["merge"]
 
 
 # standard library
+from datetime import datetime, timezone
 from math import inf
 from pathlib import Path
 from typing import Optional
 
-# third-party packages
+# dependencies
 import numpy as np
 import xarray as xr
 from dask.diagnostics import ProgressBar
 from zarr import ZipStore
+from . import __version__
 
 
 # main features
@@ -59,6 +61,12 @@ def merge(
     correlator = xr.open_zarr(path_correlator_zarr)
     correlator.coords["time"] = correlator.coords["time"] + np.timedelta64(
         correlator_time_offset, "ms"
+    )
+
+    # add merge information
+    correlator.attrs.update(
+        merge_datetime=datetime.now(timezone.utc).isoformat("T", "seconds"),
+        merge_version=__version__,
     )
 
     # append metadata Zarrs to the correlator dataset
