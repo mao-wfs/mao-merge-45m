@@ -59,9 +59,10 @@ def merge(
 
     # open correlator Zarr and correct time offset (if any)
     correlator = xr.open_zarr(path_correlator_zarr)
-    correlator.coords["time"] = correlator.coords["time"] + np.timedelta64(
-        correlator_time_offset, "ms"
-    )
+
+    with xr.set_options(keep_attrs=True):
+        offset = np.timedelta64(correlator_time_offset, "ms")
+        correlator.coords["time"] = correlator.coords["time"] + offset
 
     # add merge information
     correlator.attrs.update(
