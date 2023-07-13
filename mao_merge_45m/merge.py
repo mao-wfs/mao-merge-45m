@@ -25,7 +25,7 @@ def merge(
     path_antenna_zarr: Optional[Path] = None,
     path_sam45_zarr: Optional[Path] = None,
     interpolation: str = "linear",
-    correlator_time_offset: int = 0,
+    time_offset: int = 0,
     overwrite: bool = False,
     progress: bool = False,
 ) -> Path:
@@ -39,7 +39,7 @@ def merge(
         path_antenna_zarr: Path of the antenna Zarr file.
         path_sam45_zarr: Path of the SAM45 Zarr file.
         interpolation: Method of interpolation of log data.
-        correlator_time_offset: Offset time in units of ms to add to correlator data
+        time_offset: Offset time in units of ms to add to correlator data
         overwrite: Whether to overwrite the merged Zarr file if exists.
         progress: Whether to show a progress bar.
 
@@ -61,8 +61,8 @@ def merge(
     correlator = xr.open_zarr(path_correlator_zarr)
 
     with xr.set_options(keep_attrs=True):
-        offset = np.timedelta64(correlator_time_offset, "ms")
-        correlator.coords["time"] = correlator.coords["time"] + offset
+        time_offset = np.timedelta64(time_offset, "ms")
+        correlator.coords["time"] = correlator.coords["time"] + time_offset
 
     # add merge information
     correlator.attrs.update(
