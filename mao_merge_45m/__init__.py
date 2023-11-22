@@ -11,4 +11,5 @@ from . import antenna_50_sps
 from . import correlator
 from . import merge
 from . import sam45
+from . import thermometer
 from . import weather
