@@ -1,6 +1,6 @@
 # standard library
 from pathlib import Path
-from tempfile import NamedTemporaryFile, TemporaryDirectory
+from tempfile import TemporaryDirectory
 
 
 # third-party packages
@@ -23,4 +23,3 @@ def test_convert() -> None:
 
         assert data_ds.time[0] == pd.Timestamp("2022-05-24T22:58:49.000000000")
         assert data_ds.power_meter[0] == -14.161
-
