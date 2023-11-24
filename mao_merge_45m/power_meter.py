@@ -108,7 +108,7 @@ def convert(
         df_["num_max"] = df_.groupby("time").max()["num"]
 
         df_.reset_index(inplace=True)
-        df_["s"] = (df_["num"]-1) / df_["num_max"] * 1000
+        df_["s"] = (df_["num"] - 1) / df_["num_max"] * 1000
         df_["time"] = df_["time"] + pd.to_timedelta(np.array(df_["s"]), unit="ms")
         df_.set_index(df_["time"], inplace=True)
 

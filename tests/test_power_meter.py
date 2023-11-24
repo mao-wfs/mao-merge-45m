@@ -12,6 +12,7 @@ from mao_merge_45m.power_meter import convert
 # constants
 TEST_CSV = Path("data") / "power_meter_2022144230000Z.csv"
 
+
 # test function
 def test_convert() -> None:
     """Test whether the data of a CSV file is correctly parsed."""
