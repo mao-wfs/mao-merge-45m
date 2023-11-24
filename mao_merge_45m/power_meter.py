@@ -68,7 +68,6 @@ def convert(
         The timezone of the Zarr file is not JST but UTC.
 
     """
-
     # check the existence of the Zarr file
     if isinstance(path_log, Path):
         path_log = [path_log]
