@@ -116,6 +116,7 @@ def convert(
         df_ = df_.drop(columns=["time", "num", "num_max", "s"])
         df = pd.concat([df, df_])
 
+    df.sort_index(inplace=True)
     # write DataFrame(s) to the Zarr file
     ds = PowerMeter.new(df.total_power)
     ds = ds.assign_coords(time=ds.time - JST_HOURS)
