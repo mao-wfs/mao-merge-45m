@@ -47,7 +47,7 @@ def convert(
 ) -> Path:
     """Convert a raw log file(s) to a formatted Zarr file.
 
-    This function will make a one-dimensional antenna log outputs
+    This function will make a one-dimensional power meter log outputs
     with time metadata derived from the raw log file.
 
     Args:
