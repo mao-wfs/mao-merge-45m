@@ -44,7 +44,7 @@ class SunshineFlag:
 
 @dataclass
 class Temperature(AsDataset):
-    """Representation of antenna logs in xarray."""
+    """Representation of thermometer logs in xarray."""
 
     temperature_1p5m: Dataof[Temperature1p5m] = 0.0
     """Temperature at 1.5 m above the ground surface at the observation building."""
@@ -66,7 +66,7 @@ def convert(
 ) -> Path:
     """Convert a raw log file(s) to a formatted Zarr file.
 
-    This function will make a one-dimensional antenna log outputs
+    This function will make a one-dimensional thermometer log outputs
     with time metadata derived from the raw log file.
 
     Args:
@@ -128,7 +128,6 @@ def convert(
         df = pd.concat([df, df_])
 
     # write DataFrame(s) to the Zarr file
-    print(df)
     ds = Temperature.new(df.temperature_15, df.temperature_30, df.sunshine_flag)
     ds = ds.assign_coords(time=ds.time - JST_HOURS)
     ds = ds.chunk(length_per_chunk)
