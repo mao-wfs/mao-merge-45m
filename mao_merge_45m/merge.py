@@ -25,6 +25,7 @@ def merge(
     path_antenna_zarr: Optional[Path] = None,
     path_sam45_zarr: Optional[Path] = None,
     path_thermometer_zarr: Optional[Path] = None,
+    path_power_meter_zarr: Optional[Path] = None,
     interpolation: str = "linear",
     time_offset: int = 0,
     overwrite: bool = False,
@@ -40,6 +41,7 @@ def merge(
         path_antenna_zarr: Path of the antenna Zarr file.
         path_sam45_zarr: Path of the SAM45 Zarr file.
         path_thermometer_zarr: Path of the thermometer Zarr file.
+        path_power_meter_zarr: Path of the power meter zarr file.
         interpolation: Method of interpolation of log data.
         time_offset: Offset time in units of ms to add to correlator data
         overwrite: Whether to overwrite the merged Zarr file if exists.
@@ -79,6 +81,7 @@ def merge(
         path_antenna_zarr,
         path_sam45_zarr,
         path_thermometer_zarr,
+        path_power_meter_zarr,
     ):
         if path is None:
             continue
