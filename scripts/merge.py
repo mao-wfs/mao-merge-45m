@@ -21,7 +21,7 @@ def to_iso8601(dt: str) -> str:
 
 
 def main() -> None:
-    for corr in (DATA / "correlator").glob("*"):
+    for corr in (DATA / "correlator").glob("*.dist.zarr"):
         if (match := NAME_FMT_CORR.search(corr.name)) is None:
             continue
 
@@ -30,7 +30,7 @@ def main() -> None:
 
             merged = f"mao45_{to_iso8601(match.group(2))}_if12.zarr.zip"
             merge.merge(
-                correlator.convert(corr, overwrite=True),
+                corr,
                 DATA / "merged_20231201" / merged,
                 path_accelerometer_zarr=DATA / "accelerometer" / "2022-05.zarr",
                 path_weather_zarr=DATA / "weather" / "2022-05.zarr",
